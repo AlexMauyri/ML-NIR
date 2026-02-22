@@ -1,3 +1,5 @@
 project
 **/__pycache__
 **/.ipynb_checkpoints
+src/logs
+src/mlflow

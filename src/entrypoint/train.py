@@ -1,23 +1,29 @@
 """
-train.py – Top-level script for training and evaluating models.
+train.py – Top-level training script.
+
+Every run is automatically logged to MLflow (params, metrics, model artifact).
+The run_id is printed at the end – copy it for use with inference.py.
 
 Usage
 -----
-    # Train all three models with default settings
+    # Train all three models (logged to MLflow automatically)
     python entrypoint/train.py
 
-    # Train only SVR with 100 Optuna trials, cache processed data
-    python entrypoint/train.py --model svr --trials 100 --save-data
+    # Train only SVR with 100 Optuna trials
+    python entrypoint/train.py --model svr --trials 100
 
-    # Train XGBoost and save the fitted model to disk
-    python entrypoint/train.py --model xgb --save-model
+    # Train XGBoost and register the best model in the MLflow Model Registry
+    python entrypoint/train.py --model xgb --register-model
 
-    # Train Random Forest only
-    python entrypoint/train.py --model rf --save-model
+    # Register under a custom name
+    python entrypoint/train.py --model rf --register-model --register-name RF_production
 
-Run from the project root so relative imports resolve correctly:
+    # Use cached feature data (skip re-engineering)
+    python entrypoint/train.py --model all --use-cache
+
+Run from the project root:
     cd project/
-    python entrypoint/train.py --model all
+    python entrypoint/train.py --model svr
 """
 import argparse
 import logging
@@ -26,18 +32,19 @@ from pathlib import Path
 
 from config.logger import setup_logging
 from config.settings import N_TRIALS
-from models import SVRModel, XGBModel, RFModel
+from config.mlflow import setup_mlflow
+from models import RFModel, SVRModel, XGBModel
 from pipelines import DataPipeline, TrainingPipeline
 
-
 sys.path.insert(0, str(Path(__file__).parent.parent))
+
 setup_logging()
 logger = logging.getLogger(__name__)
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Train Sberbank price prediction models",
+        description="Train Sberbank price prediction models and log to MLflow",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument(
@@ -53,9 +60,16 @@ def parse_args() -> argparse.Namespace:
         help="Number of Optuna hyperparameter search trials",
     )
     parser.add_argument(
-        "--save-model",
+        "--register-model",
         action="store_true",
-        help="Save the fitted model(s) to models/saved/",
+        help="Register the trained model(s) in the MLflow Model Registry",
+    )
+    parser.add_argument(
+        "--register-name",
+        type=str,
+        default=None,
+        help="Registry name override (only used with --register-model\
+and a single --model)",
     )
     parser.add_argument(
         "--save-data",
@@ -74,7 +88,8 @@ def run_model(
     model_instance,
     data: DataPipeline,
     n_trials: int,
-    save: bool,
+    register: bool,
+    register_name: str | None,
 ) -> None:
     name = type(model_instance).__name__
     logger.info("=" * 60)
@@ -85,16 +100,23 @@ def run_model(
     tp.run(data)
 
     logger.info("Summary: %s", tp.summary)
+    logger.info("MLflow run_id: %s", tp.run_id)
     tp.plot(data)
 
-    if save:
-        tp.save_model()
-        logger.info("%s saved successfully", name)
+    if register:
+        version = tp.register_model(registered_name=register_name)
+        logger.info(
+            "%s registered in MLflow Model Registry (version %s)", name, version
+        )
 
 
 def main() -> None:
     args = parse_args()
-    logger.info("train.py started | model=%s | trials=%d", args.model, args.trials)
+
+    setup_mlflow()
+    logger.info(
+        "train.py started | model=%s | trials=%d", args.model, args.trials
+    )
 
     if args.use_cache:
         data = DataPipeline.from_processed()
@@ -109,13 +131,13 @@ def main() -> None:
     )
 
     if args.model in ("svr", "all"):
-        run_model(SVRModel(), data, args.trials, args.save_model)
+        run_model(SVRModel(), data, args.trials, args.register_model, args.register_name)
 
     if args.model in ("xgb", "all"):
-        run_model(XGBModel(), data, args.trials, args.save_model)
+        run_model(XGBModel(), data, args.trials, args.register_model, args.register_name)
 
     if args.model in ("rf", "all"):
-        run_model(RFModel(), data, args.trials, args.save_model)
+        run_model(RFModel(), data, args.trials, args.register_model, args.register_name)
 
     logger.info("train.py finished")
 

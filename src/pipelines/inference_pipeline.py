@@ -1,39 +1,42 @@
 """
-inference_pipeline.py – Load a saved model and produce predictions on new data.
+inference_pipeline.py – Load a model from MLflow and produce predictions.
 
 Interface
 ---------
-    ip = InferencePipeline.from_saved(SVRModel, path=SVR_MODEL_FILE)
-    predictions = ip.run(new_data_df)
+    # Load by run id
+    ip = InferencePipeline.from_mlflow(SVRModel, run_id="abc123")
+
+    # Load by registered model name + version or stage
+    ip = InferencePipeline.from_registry(SVRModel, name="SVRModel", version=3)
+    ip = InferencePipeline.from_registry(SVRModel, name="SVRModel", stage="Production")
+
+    predictions = ip.run(raw_df)
+    ip.plot(y_actual=y_test)        # overlay actuals if available
+    series = ip.as_series()         # predictions as a DatetimeIndex Series
 """
 from __future__ import annotations
 
 import logging
-from pathlib import Path
 
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import seaborn as sns
 
-from config.settings import SVR_MODEL_FILE, XGB_MODEL_FILE, TARGET_COLUMN, RF_MODEL_FILE
-from features import create_ta_features
-from models import BaseModel, SVRModel, XGBModel, RFModel
-from visualization import plot_predictions
+from config.settings import TARGET_COLUMN
+from features.engineering import create_ta_features
+from models.base_model import BaseModel
+from visualization.plots import plot_predictions
 
 logger = logging.getLogger(__name__)
-
-_DEFAULT_PATHS: dict[type, Path] = {
-    SVRModel: SVR_MODEL_FILE,
-    XGBModel: XGB_MODEL_FILE,
-    RFModel: RF_MODEL_FILE,
-}
 
 
 class InferencePipeline:
     """
-    Load a persisted model and run predictions on raw or processed data.
+    Load a trained model from MLflow and score new data.
 
-    Typical use-case: you already have a trained model on disk and want to
-    score new market data without re-training.
+    The model source is always MLflow – either a specific run or a registered
+    model version/stage.  There is no dependency on local joblib files.
     """
 
     def __init__(self, model: BaseModel) -> None:
@@ -42,29 +45,72 @@ class InferencePipeline:
         self._index = None
 
     @classmethod
-    def from_saved(
+    def from_mlflow(
         cls,
         model_cls: type[BaseModel],
-        path: Path | None = None,
+        run_id: str,
+        artifact_path: str = "model",
     ) -> "InferencePipeline":
         """
-        Restore a model from disk.
+        Load a model that was logged inside a specific MLflow run.
 
         Parameters
         ----------
-        model_cls : SVRModel or XGBModel (used to locate the default path)
-        path      : explicit file path; falls back to the default for *model_cls*
+        model_cls      : SVRModel, XGBModel, or RFModel
+        run_id         : the MLflow run id (printed by train.py, or found in the UI)
+        artifact_path  : artifact subdirectory used during training (default "model")
         """
-        if path is None:
-            path = _DEFAULT_PATHS.get(model_cls)
-            if path is None:
-                raise ValueError(
-                    f"No default path known for {model_cls.__name__}. "
-                    "Pass an explicit path."
-                )
-        model = model_cls.load(path)
-        logger.info("InferencePipeline: loaded %s from %s", model_cls.__name__, path)
+        logger.info(
+            "InferencePipeline: loading %s from MLflow run %s",
+            model_cls.__name__, run_id,
+        )
+        model = model_cls.from_mlflow_run(run_id, artifact_path=artifact_path)
         return cls(model)
+
+    @classmethod
+    def from_registry(
+        cls,
+        model_cls: type[BaseModel],
+        name: str,
+        version: int | None = None,
+        stage: str | None = None,
+    ) -> "InferencePipeline":
+        """
+        Load a model from the MLflow Model Registry by name and version or stage.
+
+        Exactly one of *version* or *stage* must be provided.
+
+        Parameters
+        ----------
+        model_cls : SVRModel, XGBModel, or RFModel  (determines the MLflow flavor)
+        name      : registered model name (e.g. ``"SVRModel"``)
+        version   : integer version number
+        stage     : lifecycle stage – ``"Staging"``, ``"Production"``, or ``"Archived"``
+        """
+        if (version is None) == (stage is None):
+            raise ValueError(
+                "Provide exactly one of version or stage, not both (or neither).",
+                )
+
+        if version is not None:
+            model_uri = f"models:/{name}/{version}"
+        else:
+            model_uri = f"models:/{name}/{stage}"
+
+        logger.info(
+            "InferencePipeline: loading %s from registry — uri: %s",
+            model_cls.__name__, model_uri,
+        )
+
+        flavor = model_cls.get_mlflow_flavor()
+        inner_model = flavor.load_model(model_uri)
+
+        instance = model_cls.__new__(model_cls)
+        BaseModel.__init__(instance)
+        instance._model = inner_model
+
+        logger.info("Loaded %s from registry: %s", model_cls.__name__, model_uri)
+        return cls(instance)
 
     def run(
         self,
@@ -107,25 +153,24 @@ class InferencePipeline:
 
     def plot(self, y_actual: pd.Series | None = None) -> None:
         """
-        Plot predictions.  If *y_actual* is provided, overlay it for comparison.
+        Plot predictions, overlaying actuals if provided.
         """
         if self._predictions is None:
             raise RuntimeError("Call InferencePipeline.run() first.")
+        model_name = type(self.model).__name__
         if y_actual is not None:
             plot_predictions(
                 self._predictions, y_actual,
-                title=f"{type(self.model).__name__} – Inference vs Actual",
+                title=f"{model_name} – Inference vs Actual",
             )
         else:
-            import matplotlib.pyplot as plt
-            import seaborn as sns
             preds = self.as_series()
             fig, ax = plt.subplots(figsize=(12, 6))
             sns.lineplot(data=preds, ax=ax, color="tomato", linewidth=2)
-            ax.set_title(f"{type(self.model).__name__} – Predictions",
-                         fontsize=14, fontweight="bold")
+            ax.set_title(f"{model_name} – Predictions", fontsize=14, fontweight="bold")
             ax.set_xlabel("Date", fontsize=12)
             ax.set_ylabel("Predicted Close", fontsize=12)
             fig.autofmt_xdate()
             plt.tight_layout()
             plt.show()
+            plt.close(fig)

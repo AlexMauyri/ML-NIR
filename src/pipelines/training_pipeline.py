@@ -1,38 +1,42 @@
 """
-training_pipeline.py – Orchestrates model tuning, evaluation and persistence.
+training_pipeline.py – Orchestrates model tuning, evaluation, MLflow logging,
+and optional model registry registration.
 
 Interface
 ---------
     tp = TrainingPipeline(model=SVRModel(), n_trials=50)
-    tp.run(data_pipeline)
-    tp.save_model()
+    tp.run(data_pipeline)           # tunes + evaluates + logs everything to MLflow
+    print(tp.run_id)                # MLflow run id for later retrieval
+    tp.register_model("SVR_prod")   # promote to MLflow Model Registry (optional)
 """
 from __future__ import annotations
 
 import logging
-from pathlib import Path
 
+import mlflow
 import numpy as np
 from sklearn.metrics import mean_absolute_percentage_error
 
-from config.settings import N_TRIALS, SVR_MODEL_FILE, XGB_MODEL_FILE, RF_MODEL_FILE
-from models import BaseModel, SVRModel, XGBModel, RFModel
-from visualization import plot_predictions
+from config.mlflow import get_or_create_experiment
+from config.settings import N_TRIALS
+from models.base_model import BaseModel
+from visualization.plots import plot_predictions
 from .data_pipeline import DataPipeline
 
 logger = logging.getLogger(__name__)
-
-_DEFAULT_PATHS: dict[type, Path] = {
-    SVRModel: SVR_MODEL_FILE,
-    XGBModel: XGB_MODEL_FILE,
-    RFModel: RF_MODEL_FILE,
-}
 
 
 class TrainingPipeline:
     """
     Single-responsibility: take a DataPipeline, tune a model, evaluate it,
-    and optionally save it.
+    log everything to MLflow, and optionally register the model.
+
+    What gets logged to MLflow per run
+    -----------------------------------
+    Tags    : model_type, n_trials, n_features, train_rows, test_rows
+    Params  : all best hyperparameters from Optuna
+    Metrics : test_mape, train_mape
+    Artifact: fitted model (via the model's native MLflow flavor)
 
     Parameters
     ----------
@@ -46,33 +50,91 @@ class TrainingPipeline:
 
         self.y_pred:    np.ndarray | None = None
         self.test_mape: float | None = None
+        self.train_mape: float | None = None
+        self.run_id:    str | None = None
 
     def run(self, data: DataPipeline) -> "TrainingPipeline":
         """
-        Tune the model on *data*'s train split, then evaluate on the test split.
+        Tune the model, evaluate it on the test split, and log the full
+        experiment to MLflow.  All artefacts live under the run identified
+        by ``self.run_id`` after this method returns.
         """
         X_train, X_test, y_train, y_test = data.get_splits()
         model_name = type(self.model).__name__
+        experiment_id = get_or_create_experiment(model_name)
 
-        logger.info("TrainingPipeline: tuning %s", model_name)
-        self.model.tune(X_train, y_train, X_test, y_test, n_trials=self.n_trials)
+        with mlflow.start_run(
+            experiment_id=experiment_id,
+            run_name=f"{model_name}_optuna_{self.n_trials}trials",
+        ) as run:
+            self.run_id = run.info.run_id
+            logger.info(
+                "MLflow run started — experiment: Sberbank_%s | run_id: %s",
+                model_name, self.run_id,
+            )
 
-        self.y_pred = self.model.predict(X_test)
-        self.test_mape = mean_absolute_percentage_error(y_test, self.y_pred)
+            mlflow.set_tags({
+                "model_type":  model_name,
+                "n_trials":    str(self.n_trials),
+                "n_features":  str(X_train.shape[1]),
+                "train_rows":  str(len(X_train)),
+                "test_rows":   str(len(X_test)),
+            })
 
-        logger.info("%s final test MAPE: %.4f%%", model_name, self.test_mape * 100)
+            logger.info("TrainingPipeline: tuning %s", model_name)
+            self.model.tune(X_train, y_train, X_test, y_test, n_trials=self.n_trials)
+
+            self.y_pred = self.model.predict(X_test)
+            self.test_mape = mean_absolute_percentage_error(y_test, self.y_pred)
+            self.train_mape = self.model.best_params.pop("_train_mape", None)
+
+            mlflow.log_params({
+                k: str(v) for k, v in self.model.best_params.items()
+            })
+
+            mlflow.log_metric("test_mape",  self.test_mape)
+            if self.train_mape is not None:
+                mlflow.log_metric("train_mape", self.train_mape)
+
+            self.model.log_to_mlflow(artifact_path="model")
+
+            logger.info(
+                "%s — test MAPE: %.4f%%  |  run_id: %s",
+                model_name, self.test_mape * 100, self.run_id,
+            )
+
         return self
 
-    def save_model(self, path: Path | None = None) -> None:
-        """Persist the fitted model. Uses a sensible default path if none given."""
-        if path is None:
-            path = _DEFAULT_PATHS.get(type(self.model))
-            if path is None:
-                raise ValueError(
-                    f"No default save path for {type(self.model).__name__}. "
-                    "Pass an explicit path."
-                )
-        self.model.save(path)
+    def register_model(self, registered_name: str | None = None) -> str:
+        """
+        Register the logged model in the MLflow Model Registry.
+
+        This promotes the artifact from the run into a named, versioned entry
+        in the registry so it can be loaded by name (e.g. for production).
+
+        Parameters
+        ----------
+        registered_name : registry name, e.g. ``"SVRModel_production"``.
+                          Defaults to the model class name.
+
+        Returns
+        -------
+        str – the registered model version
+        """
+        if self.run_id is None:
+            raise RuntimeError("Call TrainingPipeline.run() before register_model().")
+
+        if registered_name is None:
+            registered_name = type(self.model).__name__
+
+        model_uri = f"runs:/{self.run_id}/model"
+        result = mlflow.register_model(model_uri=model_uri, name=registered_name)
+
+        logger.info(
+            "Model registered as '%s' version %s (run_id=%s)",
+            registered_name, result.version, self.run_id,
+        )
+        return result.version
 
     def plot(self, data: DataPipeline) -> None:
         """Render actual-vs-predicted chart for the test set."""
@@ -89,6 +151,7 @@ class TrainingPipeline:
     def summary(self) -> dict:
         return {
             "model":       type(self.model).__name__,
+            "run_id":      self.run_id,
             "best_params": self.model.best_params,
             "test_mape":   self.test_mape,
         }

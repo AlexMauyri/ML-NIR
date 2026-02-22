@@ -7,6 +7,7 @@ it lives here. Nothing else is hard-coded anywhere.
 from pathlib import Path
 
 ROOT_DIR = Path(__file__).parent.parent
+MLFLOW_DIR = ROOT_DIR / "mlflow"
 DATA_RAW_DIR = ROOT_DIR / "data" / "raw"
 DATA_PROC_DIR = ROOT_DIR / "data" / "processed"
 LOGS_DIR = ROOT_DIR / "logs"
@@ -18,7 +19,11 @@ PROCESSED_FEATURES_FILE = DATA_PROC_DIR / "features.parquet"
 
 SVR_MODEL_FILE = MODELS_DIR / "svr_model.joblib"
 XGB_MODEL_FILE = MODELS_DIR / "xgb_model.joblib"
-RF_MODEL_FILE  = MODELS_DIR / "rf_model.joblib"
+RF_MODEL_FILE = MODELS_DIR / "rf_model.joblib"
+
+MLFLOW_TRACKING_URI = f"sqlite:///{MLFLOW_DIR / 'mlflow.db'}"
+MLFLOW_REGISTRY_URI = MLFLOW_TRACKING_URI
+MLFLOW_EXPERIMENT_PREFIX = "Sberbank"
 
 TARGET_COLUMN = "Close"
 TEST_SIZE = 0.2

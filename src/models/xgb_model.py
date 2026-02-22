@@ -30,7 +30,17 @@ logger = logging.getLogger(__name__)
 class XGBModel(BaseModel):
     """
     XGBoost Regressor tuned with Optuna (TPE + Hyperband pruner).
+
+    Overrides ``get_mlflow_flavor()`` to use ``mlflow.xgboost`` so that the
+    model is logged and loaded with the native XGBoost MLflow flavor instead
+    of the generic sklearn flavor.
     """
+
+    @classmethod
+    def get_mlflow_flavor(cls):
+        """Use the native XGBoost MLflow flavor for richer artifact metadata."""
+        import mlflow.xgboost
+        return mlflow.xgboost
 
     def tune(
         self,
