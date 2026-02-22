@@ -19,10 +19,9 @@ handlers:
   file:
     class: logging.handlers.RotatingFileHandler
     level: DEBUG
+    filename: placeholder
     formatter: standard
-    filename: logs/project.log
-    maxBytes: 5_242_880
-    backupCount: 3
+    backupCount: 14
     encoding: utf-8
 
 root:

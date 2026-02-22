@@ -15,8 +15,8 @@ from pathlib import Path
 import numpy as np
 from sklearn.metrics import mean_absolute_percentage_error
 
-from config.settings import N_TRIALS, SVR_MODEL_FILE, XGB_MODEL_FILE
-from models import BaseModel, SVRModel, XGBModel
+from config.settings import N_TRIALS, SVR_MODEL_FILE, XGB_MODEL_FILE, RF_MODEL_FILE
+from models import BaseModel, SVRModel, XGBModel, RFModel
 from visualization import plot_predictions
 from .data_pipeline import DataPipeline
 
@@ -25,6 +25,7 @@ logger = logging.getLogger(__name__)
 _DEFAULT_PATHS: dict[type, Path] = {
     SVRModel: SVR_MODEL_FILE,
     XGBModel: XGB_MODEL_FILE,
+    RFModel: RF_MODEL_FILE,
 }
 
 

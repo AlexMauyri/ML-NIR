@@ -6,12 +6,12 @@ Usage
     # Score new data with the saved SVR model
     python entrypoint/inference.py --model svr --input data/raw/sberbank_stock_prices.csv
 
-    # Score and plot against known actuals
-    python entrypoint/inference.py --model xgb --input data/raw/new_data.csv --plot
+    # Score with Random Forest and plot against actual values
+    python entrypoint/inference.py --model rf --input data/raw/new_data.csv --plot
 
-    # Save predictions to a CSV file
-    python entrypoint/inference.py --model svr
-    --input data/raw/new_data.csv --output preds.csv
+    # Save XGBoost predictions to a CSV file
+    python entrypoint/inference.py --model xgb --input data/raw/new_data.csv
+    --output preds.csv
 
 Run from the project root:
     cd project/
@@ -27,17 +27,15 @@ import logging
 import pandas as pd
 
 from config.settings import SBERBANK_CSV, TARGET_COLUMN
-from models import SVRModel, XGBModel
+from models import SVRModel, XGBModel, RFModel
 from pipelines import InferencePipeline
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 setup_logging()
-
-
 logger = logging.getLogger(__name__)
 
-_MODEL_MAP = {"svr": SVRModel, "xgb": XGBModel}
+_MODEL_MAP = {"svr": SVRModel, "xgb": XGBModel, "rf": RFModel}
 
 
 def parse_args() -> argparse.Namespace:
@@ -47,7 +45,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--model",
-        choices=["svr", "xgb"],
+        choices=["svr", "xgb", "rf"],
         required=True,
         help="Which saved model to load",
     )

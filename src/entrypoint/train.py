@@ -3,7 +3,7 @@ train.py – Top-level script for training and evaluating models.
 
 Usage
 -----
-    # Train both models with default settings
+    # Train all three models with default settings
     python entrypoint/train.py
 
     # Train only SVR with 100 Optuna trials, cache processed data
@@ -11,6 +11,9 @@ Usage
 
     # Train XGBoost and save the fitted model to disk
     python entrypoint/train.py --model xgb --save-model
+
+    # Train Random Forest only
+    python entrypoint/train.py --model rf --save-model
 
 Run from the project root so relative imports resolve correctly:
     cd project/
@@ -23,15 +26,12 @@ from pathlib import Path
 
 from config.logger import setup_logging
 from config.settings import N_TRIALS
+from models import SVRModel, XGBModel, RFModel
+from pipelines import DataPipeline, TrainingPipeline
 
-from models import SVRModel, XGBModel
-from pipelines import DataPipeline
-from pipelines import TrainingPipeline
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
-
 setup_logging()
-
 logger = logging.getLogger(__name__)
 
 
@@ -42,7 +42,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--model",
-        choices=["svr", "xgb", "all"],
+        choices=["svr", "xgb", "rf", "all"],
         default="all",
         help="Model(s) to train",
     )
@@ -113,6 +113,9 @@ def main() -> None:
 
     if args.model in ("xgb", "all"):
         run_model(XGBModel(), data, args.trials, args.save_model)
+
+    if args.model in ("rf", "all"):
+        run_model(RFModel(), data, args.trials, args.save_model)
 
     logger.info("train.py finished")
 

@@ -14,9 +14,9 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from config.settings import SVR_MODEL_FILE, XGB_MODEL_FILE, TARGET_COLUMN
+from config.settings import SVR_MODEL_FILE, XGB_MODEL_FILE, TARGET_COLUMN, RF_MODEL_FILE
 from features import create_ta_features
-from models import BaseModel, SVRModel, XGBModel
+from models import BaseModel, SVRModel, XGBModel, RFModel
 from visualization import plot_predictions
 
 logger = logging.getLogger(__name__)
@@ -24,6 +24,7 @@ logger = logging.getLogger(__name__)
 _DEFAULT_PATHS: dict[type, Path] = {
     SVRModel: SVR_MODEL_FILE,
     XGBModel: XGB_MODEL_FILE,
+    RFModel: RF_MODEL_FILE,
 }
 
 

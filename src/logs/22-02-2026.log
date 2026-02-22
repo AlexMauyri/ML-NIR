@@ -1,0 +1,582 @@
+2026-02-22 19:11:52 | INFO     | __main__ | train.py started | model=svr | trials=30
+2026-02-22 19:11:52 | INFO     | pipelines.data_pipeline | DataPipeline started
+2026-02-22 19:11:52 | INFO     | features.loader | Loading Sberbank prices from D:\ML projects\Sberbank stock prices prediction\src\data\raw\sberbank_stock_prices.csv
+2026-02-22 19:11:52 | DEBUG    | features.loader | Loaded 1293 rows of Sberbank data
+2026-02-22 19:11:52 | INFO     | features.engineering | Building feature matrix (target='Close', n_lags=4)
+2026-02-22 19:11:52 | INFO     | features.loader | Loading CB key rate from D:\ML projects\Sberbank stock prices prediction\src\data\raw\cb_rate.csv
+2026-02-22 19:11:52 | DEBUG    | features.loader | Loaded 1827 CB rate records
+2026-02-22 19:11:52 | DEBUG    | features.engineering | Joined CB key rate (1291 non-null values)
+2026-02-22 19:11:52 | DEBUG    | features.engineering | Created 4 lag features for column 'Close'
+2026-02-22 19:11:52 | INFO     | features.engineering | Feature matrix ready: 1282 rows, 12 features (dropped 11 NaN rows)
+2026-02-22 19:11:52 | DEBUG    | pipelines.data_pipeline | Split → X_train (1025, 11) | X_test (257, 11) | features: ['Rate', 'Close_lag_1', 'Close_lag_2', 'Close_lag_3', 'Close_lag_4', 'EMA_9', 'ROC_5', 'RSI_9', 'Std_11', 'Mean_11', 'Price_change']
+2026-02-22 19:11:52 | INFO     | pipelines.data_pipeline | DataPipeline finished — train=1025, test=257
+2026-02-22 19:11:52 | INFO     | __main__ | Dataset ready — train: 1025 rows | test: 257 rows | features: ['Rate', 'Close_lag_1', 'Close_lag_2', 'Close_lag_3', 'Close_lag_4', 'EMA_9', 'ROC_5', 'RSI_9', 'Std_11', 'Mean_11', 'Price_change']
+2026-02-22 19:11:52 | INFO     | __main__ | ============================================================
+2026-02-22 19:11:52 | INFO     | __main__ | Training SVRModel
+2026-02-22 19:11:52 | INFO     | __main__ | ============================================================
+2026-02-22 19:11:52 | INFO     | pipelines.training_pipeline | TrainingPipeline: tuning SVRModel
+2026-02-22 19:11:52 | INFO     | models.svr_model | Starting SVR hyperparameter search (30 trials)
+2026-02-22 19:11:52 | DEBUG    | models.validation |   Fold 1 MAPE: 0.649339
+2026-02-22 19:11:52 | DEBUG    | models.validation |   Fold 2 MAPE: 0.013642
+2026-02-22 19:11:52 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007685
+2026-02-22 19:11:52 | DEBUG    | models.validation | New best → test MAPE 0.005241 with params {'C': 2877.6032080612167, 'epsilon': 3.4581597247591858, 'kernel': 'rbf'}
+2026-02-22 19:11:52 | INFO     | models.validation | Trial → train MAPE: 0.223555 | test MAPE: 0.005241
+2026-02-22 19:11:52 | DEBUG    | models.validation |   Fold 1 MAPE: 0.644565
+2026-02-22 19:11:52 | DEBUG    | models.validation |   Fold 2 MAPE: 0.012301
+2026-02-22 19:11:53 | DEBUG    | models.validation |   Fold 3 MAPE: 0.006605
+2026-02-22 19:11:53 | DEBUG    | models.validation | New best → test MAPE 0.004141 with params {'C': 6167.352832871231, 'epsilon': 2.397625397199703, 'kernel': 'rbf'}
+2026-02-22 19:11:53 | INFO     | models.validation | Trial → train MAPE: 0.221157 | test MAPE: 0.004141
+2026-02-22 19:11:53 | DEBUG    | models.validation |   Fold 1 MAPE: 0.647752
+2026-02-22 19:11:53 | DEBUG    | models.validation |   Fold 2 MAPE: 0.014022
+2026-02-22 19:11:53 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008103
+2026-02-22 19:11:53 | INFO     | models.validation | Trial → train MAPE: 0.223292 | test MAPE: 0.005361
+2026-02-22 19:11:53 | DEBUG    | models.validation |   Fold 1 MAPE: 0.652370
+2026-02-22 19:11:53 | DEBUG    | models.validation |   Fold 2 MAPE: 0.013196
+2026-02-22 19:11:53 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008115
+2026-02-22 19:11:53 | INFO     | models.validation | Trial → train MAPE: 0.224560 | test MAPE: 0.005635
+2026-02-22 19:11:54 | DEBUG    | models.validation |   Fold 1 MAPE: 0.679806
+2026-02-22 19:11:55 | DEBUG    | models.validation |   Fold 2 MAPE: 0.012619
+2026-02-22 19:11:58 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004326
+2026-02-22 19:12:02 | DEBUG    | models.validation | New best → test MAPE 0.003078 with params {'C': 6803.355514073235, 'epsilon': 0.09726679625245722, 'kernel': 'rbf'}
+2026-02-22 19:12:02 | INFO     | models.validation | Trial → train MAPE: 0.232250 | test MAPE: 0.003078
+2026-02-22 19:12:02 | DEBUG    | models.validation |   Fold 1 MAPE: 0.656441
+2026-02-22 19:12:02 | DEBUG    | models.validation |   Fold 2 MAPE: 0.017362
+2026-02-22 19:12:02 | DEBUG    | models.validation |   Fold 3 MAPE: 0.009721
+2026-02-22 19:12:02 | INFO     | models.validation | Trial → train MAPE: 0.227841 | test MAPE: 0.006980
+2026-02-22 19:12:02 | DEBUG    | models.validation |   Fold 1 MAPE: 0.640627
+2026-02-22 19:12:03 | DEBUG    | models.validation |   Fold 2 MAPE: 0.012272
+2026-02-22 19:12:03 | DEBUG    | models.validation |   Fold 3 MAPE: 0.005621
+2026-02-22 19:12:03 | INFO     | models.validation | Trial → train MAPE: 0.219507 | test MAPE: 0.004037
+2026-02-22 19:12:03 | DEBUG    | models.validation |   Fold 1 MAPE: 0.649639
+2026-02-22 19:12:03 | DEBUG    | models.validation |   Fold 2 MAPE: 0.013631
+2026-02-22 19:12:03 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007694
+2026-02-22 19:12:03 | INFO     | models.validation | Trial → train MAPE: 0.223654 | test MAPE: 0.005293
+2026-02-22 19:12:03 | DEBUG    | models.validation |   Fold 1 MAPE: 0.651370
+2026-02-22 19:12:03 | DEBUG    | models.validation |   Fold 2 MAPE: 0.013769
+2026-02-22 19:12:03 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008111
+2026-02-22 19:12:03 | INFO     | models.validation | Trial → train MAPE: 0.224417 | test MAPE: 0.005978
+2026-02-22 19:12:03 | DEBUG    | models.validation |   Fold 1 MAPE: 0.650937
+2026-02-22 19:12:03 | DEBUG    | models.validation |   Fold 2 MAPE: 0.013723
+2026-02-22 19:12:03 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007831
+2026-02-22 19:12:04 | INFO     | models.validation | Trial → train MAPE: 0.224164 | test MAPE: 0.005883
+2026-02-22 19:12:04 | DEBUG    | models.validation |   Fold 1 MAPE: 0.636395
+2026-02-22 19:12:04 | DEBUG    | models.validation |   Fold 2 MAPE: 0.010979
+2026-02-22 19:12:04 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004463
+2026-02-22 19:12:05 | INFO     | models.validation | Trial → train MAPE: 0.217279 | test MAPE: 0.003748
+2026-02-22 19:12:05 | DEBUG    | models.validation |   Fold 1 MAPE: 0.638277
+2026-02-22 19:12:05 | DEBUG    | models.validation |   Fold 2 MAPE: 0.011437
+2026-02-22 19:12:06 | DEBUG    | models.validation |   Fold 3 MAPE: 0.005140
+2026-02-22 19:12:06 | INFO     | models.validation | Trial → train MAPE: 0.218285 | test MAPE: 0.003920
+2026-02-22 19:12:06 | DEBUG    | models.validation |   Fold 1 MAPE: 0.635475
+2026-02-22 19:12:07 | DEBUG    | models.validation |   Fold 2 MAPE: 0.010399
+2026-02-22 19:12:08 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004547
+2026-02-22 19:12:09 | INFO     | models.validation | Trial → train MAPE: 0.216807 | test MAPE: 0.003658
+2026-02-22 19:12:09 | DEBUG    | models.validation |   Fold 1 MAPE: 0.648446
+2026-02-22 19:12:09 | DEBUG    | models.validation |   Fold 2 MAPE: 0.008705
+2026-02-22 19:12:11 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004633
+2026-02-22 19:12:13 | INFO     | models.validation | Trial → train MAPE: 0.220595 | test MAPE: 0.003394
+2026-02-22 19:12:13 | DEBUG    | models.validation |   Fold 1 MAPE: 0.639373
+2026-02-22 19:12:14 | DEBUG    | models.validation |   Fold 2 MAPE: 0.009235
+2026-02-22 19:12:15 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004584
+2026-02-22 19:12:17 | INFO     | models.validation | Trial → train MAPE: 0.217731 | test MAPE: 0.003540
+2026-02-22 19:12:17 | DEBUG    | models.validation |   Fold 1 MAPE: 0.640841
+2026-02-22 19:12:17 | DEBUG    | models.validation |   Fold 2 MAPE: 0.009083
+2026-02-22 19:12:18 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004708
+2026-02-22 19:12:20 | INFO     | models.validation | Trial → train MAPE: 0.218211 | test MAPE: 0.003484
+2026-02-22 19:12:21 | DEBUG    | models.validation |   Fold 1 MAPE: 0.684035
+2026-02-22 19:12:23 | DEBUG    | models.validation |   Fold 2 MAPE: 0.012649
+2026-02-22 19:12:27 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004270
+2026-02-22 19:12:31 | INFO     | models.validation | Trial → train MAPE: 0.233651 | test MAPE: 0.003095
+2026-02-22 19:12:31 | DEBUG    | models.validation |   Fold 1 MAPE: 0.637371
+2026-02-22 19:12:31 | DEBUG    | models.validation |   Fold 2 MAPE: 0.010827
+2026-02-22 19:12:31 | DEBUG    | models.validation |   Fold 3 MAPE: 0.005318
+2026-02-22 19:12:31 | INFO     | models.validation | Trial → train MAPE: 0.217839 | test MAPE: 0.003879
+2026-02-22 19:12:31 | DEBUG    | models.validation |   Fold 1 MAPE: 0.646807
+2026-02-22 19:12:31 | DEBUG    | models.validation |   Fold 2 MAPE: 0.012955
+2026-02-22 19:12:32 | DEBUG    | models.validation |   Fold 3 MAPE: 0.006697
+2026-02-22 19:12:32 | INFO     | models.validation | Trial → train MAPE: 0.222153 | test MAPE: 0.004735
+2026-02-22 19:12:32 | DEBUG    | models.validation |   Fold 1 MAPE: 0.648260
+2026-02-22 19:12:32 | DEBUG    | models.validation |   Fold 2 MAPE: 0.010779
+2026-02-22 19:12:32 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004432
+2026-02-22 19:12:33 | INFO     | models.validation | Trial → train MAPE: 0.221157 | test MAPE: 0.003188
+2026-02-22 19:12:33 | DEBUG    | models.validation |   Fold 1 MAPE: 0.636619
+2026-02-22 19:12:33 | DEBUG    | models.validation |   Fold 2 MAPE: 0.010871
+2026-02-22 19:12:33 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004607
+2026-02-22 19:12:34 | INFO     | models.validation | Trial → train MAPE: 0.217366 | test MAPE: 0.003775
+2026-02-22 19:12:34 | DEBUG    | models.validation |   Fold 1 MAPE: 0.637004
+2026-02-22 19:12:35 | DEBUG    | models.validation |   Fold 2 MAPE: 0.011189
+2026-02-22 19:12:35 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004775
+2026-02-22 19:12:36 | INFO     | models.validation | Trial → train MAPE: 0.217656 | test MAPE: 0.003782
+2026-02-22 19:12:36 | DEBUG    | models.validation |   Fold 1 MAPE: 0.642338
+2026-02-22 19:12:36 | DEBUG    | models.validation |   Fold 2 MAPE: 0.012692
+2026-02-22 19:12:36 | DEBUG    | models.validation |   Fold 3 MAPE: 0.005881
+2026-02-22 19:12:36 | INFO     | models.validation | Trial → train MAPE: 0.220304 | test MAPE: 0.003948
+2026-02-22 19:12:36 | DEBUG    | models.validation |   Fold 1 MAPE: 0.635688
+2026-02-22 19:12:37 | DEBUG    | models.validation |   Fold 2 MAPE: 0.010311
+2026-02-22 19:12:38 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004653
+2026-02-22 19:12:39 | INFO     | models.validation | Trial → train MAPE: 0.216884 | test MAPE: 0.003640
+2026-02-22 19:12:39 | DEBUG    | models.validation |   Fold 1 MAPE: 0.692583
+2026-02-22 19:12:40 | DEBUG    | models.validation |   Fold 2 MAPE: 0.011090
+2026-02-22 19:12:43 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004139
+2026-02-22 19:12:47 | INFO     | models.validation | Trial → train MAPE: 0.235937 | test MAPE: 0.003283
+2026-02-22 19:12:47 | DEBUG    | models.validation |   Fold 1 MAPE: 0.647005
+2026-02-22 19:12:47 | DEBUG    | models.validation |   Fold 2 MAPE: 0.013890
+2026-02-22 19:12:47 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007276
+2026-02-22 19:12:47 | INFO     | models.validation | Trial → train MAPE: 0.222724 | test MAPE: 0.004970
+2026-02-22 19:12:47 | DEBUG    | models.validation |   Fold 1 MAPE: 0.635208
+2026-02-22 19:12:48 | DEBUG    | models.validation |   Fold 2 MAPE: 0.010017
+2026-02-22 19:12:48 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004627
+2026-02-22 19:12:49 | INFO     | models.validation | Trial → train MAPE: 0.216617 | test MAPE: 0.003672
+2026-02-22 19:12:50 | DEBUG    | models.validation |   Fold 1 MAPE: 0.692633
+2026-02-22 19:12:51 | DEBUG    | models.validation |   Fold 2 MAPE: 0.011305
+2026-02-22 19:12:54 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004228
+2026-02-22 19:12:58 | INFO     | models.validation | Trial → train MAPE: 0.236056 | test MAPE: 0.003206
+2026-02-22 19:12:58 | DEBUG    | models.validation |   Fold 1 MAPE: 0.635353
+2026-02-22 19:12:58 | DEBUG    | models.validation |   Fold 2 MAPE: 0.010190
+2026-02-22 19:12:58 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004803
+2026-02-22 19:12:59 | INFO     | models.validation | Trial → train MAPE: 0.216782 | test MAPE: 0.003621
+2026-02-22 19:12:59 | DEBUG    | models.validation |   Fold 1 MAPE: 0.642276
+2026-02-22 19:12:59 | DEBUG    | models.validation |   Fold 2 MAPE: 0.012572
+2026-02-22 19:12:59 | DEBUG    | models.validation |   Fold 3 MAPE: 0.006650
+2026-02-22 19:13:00 | INFO     | models.validation | Trial → train MAPE: 0.220499 | test MAPE: 0.004209
+2026-02-22 19:13:00 | INFO     | models.svr_model | SVR best params: {'C': 6803.355514073235, 'epsilon': 0.09726679625245722, 'kernel': 'rbf'}  (test MAPE=0.003078)
+2026-02-22 19:13:04 | INFO     | pipelines.training_pipeline | SVRModel final test MAPE: 0.3078%
+2026-02-22 19:13:04 | INFO     | __main__ | Summary: {'model': 'SVRModel', 'best_params': {'C': 6803.355514073235, 'epsilon': 0.09726679625245722, 'kernel': 'rbf'}, 'test_mape': 0.0030778942423995387}
+2026-02-22 19:13:04 | INFO     | visualization.plots | Plotting predictions – MAPE=0.3078%
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 1189
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 2994
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 374
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 286
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 263
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 387
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 436
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 351
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 19:13:04 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 364
+2026-02-22 19:14:52 | INFO     | models.base_model | Model saved to D:\ML projects\Sberbank stock prices prediction\src\models\saved\svr_model.joblib
+2026-02-22 19:14:52 | INFO     | __main__ | SVRModel saved successfully
+2026-02-22 19:14:52 | INFO     | __main__ | train.py finished
+2026-02-22 19:15:43 | INFO     | __main__ | train.py started | model=rf | trials=30
+2026-02-22 19:15:43 | INFO     | pipelines.data_pipeline | DataPipeline started
+2026-02-22 19:15:43 | INFO     | features.loader | Loading Sberbank prices from D:\ML projects\Sberbank stock prices prediction\src\data\raw\sberbank_stock_prices.csv
+2026-02-22 19:15:43 | DEBUG    | features.loader | Loaded 1293 rows of Sberbank data
+2026-02-22 19:15:43 | INFO     | features.engineering | Building feature matrix (target='Close', n_lags=4)
+2026-02-22 19:15:43 | INFO     | features.loader | Loading CB key rate from D:\ML projects\Sberbank stock prices prediction\src\data\raw\cb_rate.csv
+2026-02-22 19:15:44 | DEBUG    | features.loader | Loaded 1827 CB rate records
+2026-02-22 19:15:44 | DEBUG    | features.engineering | Joined CB key rate (1291 non-null values)
+2026-02-22 19:15:44 | DEBUG    | features.engineering | Created 4 lag features for column 'Close'
+2026-02-22 19:15:44 | INFO     | features.engineering | Feature matrix ready: 1282 rows, 12 features (dropped 11 NaN rows)
+2026-02-22 19:15:44 | DEBUG    | pipelines.data_pipeline | Split → X_train (1025, 11) | X_test (257, 11) | features: ['Rate', 'Close_lag_1', 'Close_lag_2', 'Close_lag_3', 'Close_lag_4', 'EMA_9', 'ROC_5', 'RSI_9', 'Std_11', 'Mean_11', 'Price_change']
+2026-02-22 19:15:44 | INFO     | pipelines.data_pipeline | DataPipeline finished — train=1025, test=257
+2026-02-22 19:15:44 | INFO     | __main__ | Dataset ready — train: 1025 rows | test: 257 rows | features: ['Rate', 'Close_lag_1', 'Close_lag_2', 'Close_lag_3', 'Close_lag_4', 'EMA_9', 'ROC_5', 'RSI_9', 'Std_11', 'Mean_11', 'Price_change']
+2026-02-22 19:15:44 | INFO     | __main__ | ============================================================
+2026-02-22 19:15:44 | INFO     | __main__ | Training RFModel
+2026-02-22 19:15:44 | INFO     | __main__ | ============================================================
+2026-02-22 19:15:44 | INFO     | pipelines.training_pipeline | TrainingPipeline: tuning RFModel
+2026-02-22 19:15:44 | INFO     | models.rf_model | Starting Random Forest hyperparameter search (30 trials)
+2026-02-22 19:15:44 | DEBUG    | models.validation |   Fold 1 MAPE: 0.406751
+2026-02-22 19:15:45 | DEBUG    | models.validation |   Fold 2 MAPE: 0.032728
+2026-02-22 19:15:46 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007757
+2026-02-22 19:15:46 | DEBUG    | models.validation | New best → test MAPE 0.011593 with params {'n_estimators': 450, 'max_depth': 6, 'min_samples_split': 12, 'min_samples_leaf': 8, 'max_features': 'log2', 'n_jobs': -1}
+2026-02-22 19:15:46 | INFO     | models.validation | Trial → train MAPE: 0.149079 | test MAPE: 0.011593
+2026-02-22 19:15:47 | DEBUG    | models.validation |   Fold 1 MAPE: 0.402021
+2026-02-22 19:15:48 | DEBUG    | models.validation |   Fold 2 MAPE: 0.033506
+2026-02-22 19:15:49 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007239
+2026-02-22 19:15:50 | DEBUG    | models.validation | New best → test MAPE 0.010646 with params {'n_estimators': 555, 'max_depth': 7, 'min_samples_split': 4, 'min_samples_leaf': 4, 'max_features': 'log2', 'n_jobs': -1}
+2026-02-22 19:15:50 | INFO     | models.validation | Trial → train MAPE: 0.147589 | test MAPE: 0.010646
+2026-02-22 19:15:51 | DEBUG    | models.validation |   Fold 1 MAPE: 0.402892
+2026-02-22 19:15:51 | DEBUG    | models.validation |   Fold 2 MAPE: 0.035576
+2026-02-22 19:15:52 | DEBUG    | models.validation |   Fold 3 MAPE: 0.006967
+2026-02-22 19:15:52 | DEBUG    | models.validation | New best → test MAPE 0.009852 with params {'n_estimators': 349, 'max_depth': 14, 'min_samples_split': 6, 'min_samples_leaf': 1, 'max_features': 'sqrt', 'n_jobs': -1}
+2026-02-22 19:15:52 | INFO     | models.validation | Trial → train MAPE: 0.148478 | test MAPE: 0.009852
+2026-02-22 19:15:53 | DEBUG    | models.validation |   Fold 1 MAPE: 0.411452
+2026-02-22 19:15:54 | DEBUG    | models.validation |   Fold 2 MAPE: 0.033629
+2026-02-22 19:15:55 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007600
+2026-02-22 19:15:56 | INFO     | models.validation | Trial → train MAPE: 0.150894 | test MAPE: 0.010607
+2026-02-22 19:15:56 | DEBUG    | models.validation |   Fold 1 MAPE: 0.407229
+2026-02-22 19:15:56 | DEBUG    | models.validation |   Fold 2 MAPE: 0.043624
+2026-02-22 19:15:57 | DEBUG    | models.validation |   Fold 3 MAPE: 0.012041
+2026-02-22 19:15:57 | INFO     | models.validation | Trial → train MAPE: 0.154298 | test MAPE: 0.014988
+2026-02-22 19:15:57 | DEBUG    | models.validation |   Fold 1 MAPE: 0.410752
+2026-02-22 19:15:58 | DEBUG    | models.validation |   Fold 2 MAPE: 0.034682
+2026-02-22 19:15:58 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007700
+2026-02-22 19:15:59 | INFO     | models.validation | Trial → train MAPE: 0.151045 | test MAPE: 0.010326
+2026-02-22 19:16:00 | DEBUG    | models.validation |   Fold 1 MAPE: 0.408759
+2026-02-22 19:16:02 | DEBUG    | models.validation |   Fold 2 MAPE: 0.040358
+2026-02-22 19:16:04 | DEBUG    | models.validation |   Fold 3 MAPE: 0.012265
+2026-02-22 19:16:06 | INFO     | models.validation | Trial → train MAPE: 0.153794 | test MAPE: 0.015107
+2026-02-22 19:16:07 | DEBUG    | models.validation |   Fold 1 MAPE: 0.403744
+2026-02-22 19:16:08 | DEBUG    | models.validation |   Fold 2 MAPE: 0.034115
+2026-02-22 19:16:08 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007083
+2026-02-22 19:16:09 | DEBUG    | models.validation | New best → test MAPE 0.009756 with params {'n_estimators': 441, 'max_depth': 12, 'min_samples_split': 10, 'min_samples_leaf': 3, 'max_features': 'sqrt', 'n_jobs': -1}
+2026-02-22 19:16:09 | INFO     | models.validation | Trial → train MAPE: 0.148314 | test MAPE: 0.009756
+2026-02-22 19:16:10 | DEBUG    | models.validation |   Fold 1 MAPE: 0.411586
+2026-02-22 19:16:11 | DEBUG    | models.validation |   Fold 2 MAPE: 0.034353
+2026-02-22 19:16:13 | DEBUG    | models.validation |   Fold 3 MAPE: 0.009184
+2026-02-22 19:16:14 | INFO     | models.validation | Trial → train MAPE: 0.151708 | test MAPE: 0.013187
+2026-02-22 19:16:14 | DEBUG    | models.validation |   Fold 1 MAPE: 0.402008
+2026-02-22 19:16:15 | DEBUG    | models.validation |   Fold 2 MAPE: 0.033748
+2026-02-22 19:16:16 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007082
+2026-02-22 19:16:16 | INFO     | models.validation | Trial → train MAPE: 0.147613 | test MAPE: 0.009823
+2026-02-22 19:16:17 | DEBUG    | models.validation |   Fold 1 MAPE: 0.405794
+2026-02-22 19:16:19 | DEBUG    | models.validation |   Fold 2 MAPE: 0.034385
+2026-02-22 19:16:20 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007073
+2026-02-22 19:16:21 | INFO     | models.validation | Trial → train MAPE: 0.149084 | test MAPE: 0.010268
+2026-02-22 19:16:22 | DEBUG    | models.validation |   Fold 1 MAPE: 0.403015
+2026-02-22 19:16:24 | DEBUG    | models.validation |   Fold 2 MAPE: 0.033565
+2026-02-22 19:16:25 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007165
+2026-02-22 19:16:26 | INFO     | models.validation | Trial → train MAPE: 0.147915 | test MAPE: 0.009996
+2026-02-22 19:16:27 | DEBUG    | models.validation |   Fold 1 MAPE: 0.402510
+2026-02-22 19:16:27 | DEBUG    | models.validation |   Fold 2 MAPE: 0.034620
+2026-02-22 19:16:28 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007087
+2026-02-22 19:16:28 | INFO     | models.validation | Trial → train MAPE: 0.148072 | test MAPE: 0.010023
+2026-02-22 19:16:29 | DEBUG    | models.validation |   Fold 1 MAPE: 0.400595
+2026-02-22 19:16:29 | DEBUG    | models.validation |   Fold 2 MAPE: 0.035204
+2026-02-22 19:16:29 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007379
+2026-02-22 19:16:29 | INFO     | models.validation | Trial → train MAPE: 0.147726 | test MAPE: 0.011435
+2026-02-22 19:16:30 | DEBUG    | models.validation |   Fold 1 MAPE: 0.405903
+2026-02-22 19:16:31 | DEBUG    | models.validation |   Fold 2 MAPE: 0.034366
+2026-02-22 19:16:32 | DEBUG    | models.validation |   Fold 3 MAPE: 0.006993
+2026-02-22 19:16:33 | INFO     | models.validation | Trial → train MAPE: 0.149087 | test MAPE: 0.010064
+2026-02-22 19:16:35 | DEBUG    | models.validation |   Fold 1 MAPE: 0.402437
+2026-02-22 19:16:36 | DEBUG    | models.validation |   Fold 2 MAPE: 0.034313
+2026-02-22 19:16:38 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007094
+2026-02-22 19:16:39 | DEBUG    | models.validation | New best → test MAPE 0.009694 with params {'n_estimators': 898, 'max_depth': 15, 'min_samples_split': 9, 'min_samples_leaf': 5, 'max_features': 'sqrt', 'n_jobs': -1}
+2026-02-22 19:16:39 | INFO     | models.validation | Trial → train MAPE: 0.147948 | test MAPE: 0.009694
+2026-02-22 19:16:40 | DEBUG    | models.validation |   Fold 1 MAPE: 0.404097
+2026-02-22 19:16:41 | DEBUG    | models.validation |   Fold 2 MAPE: 0.032176
+2026-02-22 19:16:42 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007294
+2026-02-22 19:16:43 | INFO     | models.validation | Trial → train MAPE: 0.147855 | test MAPE: 0.010079
+2026-02-22 19:16:44 | DEBUG    | models.validation |   Fold 1 MAPE: 0.405959
+2026-02-22 19:16:46 | DEBUG    | models.validation |   Fold 2 MAPE: 0.035172
+2026-02-22 19:16:47 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007247
+2026-02-22 19:16:49 | INFO     | models.validation | Trial → train MAPE: 0.149459 | test MAPE: 0.010961
+2026-02-22 19:16:49 | DEBUG    | models.validation |   Fold 1 MAPE: 0.404252
+2026-02-22 19:16:50 | DEBUG    | models.validation |   Fold 2 MAPE: 0.033455
+2026-02-22 19:16:51 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007164
+2026-02-22 19:16:51 | INFO     | models.validation | Trial → train MAPE: 0.148290 | test MAPE: 0.009944
+2026-02-22 19:16:52 | DEBUG    | models.validation |   Fold 1 MAPE: 0.409889
+2026-02-22 19:16:53 | DEBUG    | models.validation |   Fold 2 MAPE: 0.059045
+2026-02-22 19:16:54 | DEBUG    | models.validation |   Fold 3 MAPE: 0.021242
+2026-02-22 19:16:55 | INFO     | models.validation | Trial → train MAPE: 0.163392 | test MAPE: 0.024027
+2026-02-22 19:16:56 | DEBUG    | models.validation |   Fold 1 MAPE: 0.405290
+2026-02-22 19:16:56 | DEBUG    | models.validation |   Fold 2 MAPE: 0.035539
+2026-02-22 19:16:57 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007223
+2026-02-22 19:16:57 | INFO     | models.validation | Trial → train MAPE: 0.149350 | test MAPE: 0.010794
+2026-02-22 19:16:57 | DEBUG    | models.validation |   Fold 1 MAPE: 0.404953
+2026-02-22 19:16:57 | DEBUG    | models.validation |   Fold 2 MAPE: 0.036580
+2026-02-22 19:16:58 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007928
+2026-02-22 19:16:58 | INFO     | models.validation | Trial → train MAPE: 0.149820 | test MAPE: 0.011915
+2026-02-22 19:16:58 | DEBUG    | models.validation |   Fold 1 MAPE: 0.401644
+2026-02-22 19:16:58 | DEBUG    | models.validation |   Fold 2 MAPE: 0.036380
+2026-02-22 19:16:59 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007604
+2026-02-22 19:16:59 | INFO     | models.validation | Trial → train MAPE: 0.148543 | test MAPE: 0.010821
+2026-02-22 19:17:00 | DEBUG    | models.validation |   Fold 1 MAPE: 0.401452
+2026-02-22 19:17:00 | DEBUG    | models.validation |   Fold 2 MAPE: 0.035065
+2026-02-22 19:17:01 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007360
+2026-02-22 19:17:02 | INFO     | models.validation | Trial → train MAPE: 0.147959 | test MAPE: 0.010764
+2026-02-22 19:17:02 | DEBUG    | models.validation |   Fold 1 MAPE: 0.401843
+2026-02-22 19:17:03 | DEBUG    | models.validation |   Fold 2 MAPE: 0.034612
+2026-02-22 19:17:03 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007330
+2026-02-22 19:17:03 | DEBUG    | models.validation | New best → test MAPE 0.009437 with params {'n_estimators': 203, 'max_depth': 10, 'min_samples_split': 4, 'min_samples_leaf': 2, 'max_features': 'sqrt', 'n_jobs': -1}
+2026-02-22 19:17:03 | INFO     | models.validation | Trial → train MAPE: 0.147928 | test MAPE: 0.009437
+2026-02-22 19:17:04 | DEBUG    | models.validation |   Fold 1 MAPE: 0.401048
+2026-02-22 19:17:05 | DEBUG    | models.validation |   Fold 2 MAPE: 0.032248
+2026-02-22 19:17:05 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007091
+2026-02-22 19:17:06 | INFO     | models.validation | Trial → train MAPE: 0.146795 | test MAPE: 0.010094
+2026-02-22 19:17:06 | DEBUG    | models.validation |   Fold 1 MAPE: 0.403515
+2026-02-22 19:17:07 | DEBUG    | models.validation |   Fold 2 MAPE: 0.032609
+2026-02-22 19:17:07 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007232
+2026-02-22 19:17:08 | INFO     | models.validation | Trial → train MAPE: 0.147785 | test MAPE: 0.009824
+2026-02-22 19:17:09 | DEBUG    | models.validation |   Fold 1 MAPE: 0.403119
+2026-02-22 19:17:09 | DEBUG    | models.validation |   Fold 2 MAPE: 0.032739
+2026-02-22 19:17:10 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007186
+2026-02-22 19:17:11 | INFO     | models.validation | Trial → train MAPE: 0.147681 | test MAPE: 0.009972
+2026-02-22 19:17:12 | DEBUG    | models.validation |   Fold 1 MAPE: 0.404925
+2026-02-22 19:17:13 | DEBUG    | models.validation |   Fold 2 MAPE: 0.033453
+2026-02-22 19:17:13 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007246
+2026-02-22 19:17:14 | INFO     | models.validation | Trial → train MAPE: 0.148541 | test MAPE: 0.010333
+2026-02-22 19:17:15 | DEBUG    | models.validation |   Fold 1 MAPE: 0.405022
+2026-02-22 19:17:15 | DEBUG    | models.validation |   Fold 2 MAPE: 0.036481
+2026-02-22 19:17:16 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007831
+2026-02-22 19:17:17 | INFO     | models.validation | Trial → train MAPE: 0.149778 | test MAPE: 0.011868
+2026-02-22 19:17:17 | INFO     | models.rf_model | Random Forest best params: {'n_estimators': 203, 'max_depth': 10, 'min_samples_split': 4, 'min_samples_leaf': 2, 'max_features': 'sqrt', 'n_jobs': -1}  (test MAPE=0.009437)
+2026-02-22 19:17:17 | INFO     | pipelines.training_pipeline | RFModel final test MAPE: 0.9507%
+2026-02-22 19:17:17 | INFO     | __main__ | Summary: {'model': 'RFModel', 'best_params': {'n_estimators': 203, 'max_depth': 10, 'min_samples_split': 4, 'min_samples_leaf': 2, 'max_features': 'sqrt', 'n_jobs': -1}, 'test_mape': 0.009507112902081574}
+2026-02-22 19:17:17 | INFO     | visualization.plots | Plotting predictions – MAPE=0.9507%
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 1189
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 2994
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 374
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 286
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 263
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 387
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 436
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 351
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 19:17:18 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 364
+2026-02-22 19:18:58 | INFO     | models.base_model | Model saved to D:\ML projects\Sberbank stock prices prediction\src\models\saved\rf_model.joblib
+2026-02-22 19:18:58 | INFO     | __main__ | RFModel saved successfully
+2026-02-22 19:18:58 | INFO     | __main__ | train.py finished
+2026-02-22 19:19:13 | INFO     | __main__ | train.py started | model=xgb | trials=30
+2026-02-22 19:19:13 | INFO     | pipelines.data_pipeline | DataPipeline started
+2026-02-22 19:19:13 | INFO     | features.loader | Loading Sberbank prices from D:\ML projects\Sberbank stock prices prediction\src\data\raw\sberbank_stock_prices.csv
+2026-02-22 19:19:13 | DEBUG    | features.loader | Loaded 1293 rows of Sberbank data
+2026-02-22 19:19:13 | INFO     | features.engineering | Building feature matrix (target='Close', n_lags=4)
+2026-02-22 19:19:13 | INFO     | features.loader | Loading CB key rate from D:\ML projects\Sberbank stock prices prediction\src\data\raw\cb_rate.csv
+2026-02-22 19:19:13 | DEBUG    | features.loader | Loaded 1827 CB rate records
+2026-02-22 19:19:13 | DEBUG    | features.engineering | Joined CB key rate (1291 non-null values)
+2026-02-22 19:19:13 | DEBUG    | features.engineering | Created 4 lag features for column 'Close'
+2026-02-22 19:19:13 | INFO     | features.engineering | Feature matrix ready: 1282 rows, 12 features (dropped 11 NaN rows)
+2026-02-22 19:19:13 | DEBUG    | pipelines.data_pipeline | Split → X_train (1025, 11) | X_test (257, 11) | features: ['Rate', 'Close_lag_1', 'Close_lag_2', 'Close_lag_3', 'Close_lag_4', 'EMA_9', 'ROC_5', 'RSI_9', 'Std_11', 'Mean_11', 'Price_change']
+2026-02-22 19:19:13 | INFO     | pipelines.data_pipeline | DataPipeline finished — train=1025, test=257
+2026-02-22 19:19:13 | INFO     | __main__ | Dataset ready — train: 1025 rows | test: 257 rows | features: ['Rate', 'Close_lag_1', 'Close_lag_2', 'Close_lag_3', 'Close_lag_4', 'EMA_9', 'ROC_5', 'RSI_9', 'Std_11', 'Mean_11', 'Price_change']
+2026-02-22 19:19:13 | INFO     | __main__ | ============================================================
+2026-02-22 19:19:13 | INFO     | __main__ | Training XGBModel
+2026-02-22 19:19:13 | INFO     | __main__ | ============================================================
+2026-02-22 19:19:13 | INFO     | pipelines.training_pipeline | TrainingPipeline: tuning XGBModel
+2026-02-22 19:19:13 | INFO     | models.xgb_model | Starting XGBoost hyperparameter search (30 trials)
+2026-02-22 19:19:14 | DEBUG    | models.validation |   Fold 1 MAPE: 0.401344
+2026-02-22 19:19:15 | DEBUG    | models.validation |   Fold 2 MAPE: 0.019711
+2026-02-22 19:19:15 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008648
+2026-02-22 19:19:16 | DEBUG    | models.validation | New best → test MAPE 0.009109 with params {'tree_method': 'exact', 'n_estimators': 1751, 'max_depth': 8, 'min_child_weight': 5.844988900168755, 'learning_rate': 0.1, 'subsample': 0.7808188786165416, 'colsample_bytree': 0.7362994480142265, 'reg_lambda': 417.73868097911935, 'early_stopping_rounds': 100, 'n_jobs': -1}
+2026-02-22 19:19:16 | INFO     | models.validation | Trial → train MAPE: 0.143234 | test MAPE: 0.009109
+2026-02-22 19:19:17 | DEBUG    | models.validation |   Fold 1 MAPE: 0.400313
+2026-02-22 19:19:18 | DEBUG    | models.validation |   Fold 2 MAPE: 0.021238
+2026-02-22 19:19:19 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008072
+2026-02-22 19:19:19 | DEBUG    | models.validation | New best → test MAPE 0.008763 with params {'tree_method': 'exact', 'n_estimators': 1548, 'max_depth': 8, 'min_child_weight': 6.193728347331348, 'learning_rate': 0.1, 'subsample': 0.7494101530473871, 'colsample_bytree': 0.777000915551931, 'reg_lambda': 347.4376717582077, 'early_stopping_rounds': 100, 'n_jobs': -1}
+2026-02-22 19:19:19 | INFO     | models.validation | Trial → train MAPE: 0.143208 | test MAPE: 0.008763
+2026-02-22 19:19:21 | DEBUG    | models.validation |   Fold 1 MAPE: 0.400369
+2026-02-22 19:19:22 | DEBUG    | models.validation |   Fold 2 MAPE: 0.020576
+2026-02-22 19:19:22 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008432
+2026-02-22 19:19:23 | INFO     | models.validation | Trial → train MAPE: 0.143126 | test MAPE: 0.009157
+2026-02-22 19:19:24 | DEBUG    | models.validation |   Fold 1 MAPE: 0.398590
+2026-02-22 19:19:25 | DEBUG    | models.validation |   Fold 2 MAPE: 0.019479
+2026-02-22 19:19:25 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008421
+2026-02-22 19:19:26 | INFO     | models.validation | Trial → train MAPE: 0.142163 | test MAPE: 0.009006
+2026-02-22 19:19:27 | DEBUG    | models.validation |   Fold 1 MAPE: 0.400139
+2026-02-22 19:19:28 | DEBUG    | models.validation |   Fold 2 MAPE: 0.020492
+2026-02-22 19:19:28 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008553
+2026-02-22 19:19:29 | INFO     | models.validation | Trial → train MAPE: 0.143061 | test MAPE: 0.009089
+2026-02-22 19:19:30 | DEBUG    | models.validation |   Fold 1 MAPE: 0.400237
+2026-02-22 19:19:31 | DEBUG    | models.validation |   Fold 2 MAPE: 0.020067
+2026-02-22 19:19:31 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008454
+2026-02-22 19:19:32 | INFO     | models.validation | Trial → train MAPE: 0.142920 | test MAPE: 0.009136
+2026-02-22 19:19:33 | DEBUG    | models.validation |   Fold 1 MAPE: 0.403497
+2026-02-22 19:19:34 | DEBUG    | models.validation |   Fold 2 MAPE: 0.018998
+2026-02-22 19:19:34 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008467
+2026-02-22 19:19:35 | INFO     | models.validation | Trial → train MAPE: 0.143654 | test MAPE: 0.009001
+2026-02-22 19:19:36 | DEBUG    | models.validation |   Fold 1 MAPE: 0.399712
+2026-02-22 19:19:37 | DEBUG    | models.validation |   Fold 2 MAPE: 0.019040
+2026-02-22 19:19:37 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008313
+2026-02-22 19:19:38 | INFO     | models.validation | Trial → train MAPE: 0.142355 | test MAPE: 0.009273
+2026-02-22 19:19:39 | DEBUG    | models.validation |   Fold 1 MAPE: 0.400736
+2026-02-22 19:19:41 | DEBUG    | models.validation |   Fold 2 MAPE: 0.020278
+2026-02-22 19:19:41 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008498
+2026-02-22 19:19:42 | INFO     | models.validation | Trial → train MAPE: 0.143170 | test MAPE: 0.008984
+2026-02-22 19:19:43 | DEBUG    | models.validation |   Fold 1 MAPE: 0.403314
+2026-02-22 19:19:44 | DEBUG    | models.validation |   Fold 2 MAPE: 0.019049
+2026-02-22 19:19:44 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008515
+2026-02-22 19:19:45 | INFO     | models.validation | Trial → train MAPE: 0.143626 | test MAPE: 0.009247
+2026-02-22 19:19:46 | DEBUG    | models.validation |   Fold 1 MAPE: 0.401325
+2026-02-22 19:19:47 | DEBUG    | models.validation |   Fold 2 MAPE: 0.018080
+2026-02-22 19:19:47 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008743
+2026-02-22 19:19:48 | INFO     | models.validation | Trial → train MAPE: 0.142716 | test MAPE: 0.008897
+2026-02-22 19:19:49 | DEBUG    | models.validation |   Fold 1 MAPE: 0.398664
+2026-02-22 19:19:50 | DEBUG    | models.validation |   Fold 2 MAPE: 0.019005
+2026-02-22 19:19:50 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008422
+2026-02-22 19:19:51 | INFO     | models.validation | Trial → train MAPE: 0.142030 | test MAPE: 0.009119
+2026-02-22 19:19:52 | DEBUG    | models.validation |   Fold 1 MAPE: 0.397879
+2026-02-22 19:19:53 | DEBUG    | models.validation |   Fold 2 MAPE: 0.018769
+2026-02-22 19:19:53 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008591
+2026-02-22 19:19:54 | INFO     | models.validation | Trial → train MAPE: 0.141746 | test MAPE: 0.009164
+2026-02-22 19:19:55 | DEBUG    | models.validation |   Fold 1 MAPE: 0.398355
+2026-02-22 19:19:56 | DEBUG    | models.validation |   Fold 2 MAPE: 0.018893
+2026-02-22 19:19:56 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008391
+2026-02-22 19:19:57 | INFO     | models.validation | Trial → train MAPE: 0.141879 | test MAPE: 0.008843
+2026-02-22 19:19:58 | DEBUG    | models.validation |   Fold 1 MAPE: 0.398057
+2026-02-22 19:19:58 | DEBUG    | models.validation |   Fold 2 MAPE: 0.019805
+2026-02-22 19:19:59 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008470
+2026-02-22 19:19:59 | DEBUG    | models.validation | New best → test MAPE 0.008652 with params {'tree_method': 'exact', 'n_estimators': 1651, 'max_depth': 7, 'min_child_weight': 8.631640785724555, 'learning_rate': 0.1, 'subsample': 0.8418792579881641, 'colsample_bytree': 0.8063648189145697, 'reg_lambda': 301.7251411004846, 'early_stopping_rounds': 100, 'n_jobs': -1}
+2026-02-22 19:19:59 | INFO     | models.validation | Trial → train MAPE: 0.142111 | test MAPE: 0.008652
+2026-02-22 19:20:00 | DEBUG    | models.validation |   Fold 1 MAPE: 0.398461
+2026-02-22 19:20:01 | DEBUG    | models.validation |   Fold 2 MAPE: 0.021230
+2026-02-22 19:20:01 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008310
+2026-02-22 19:20:02 | INFO     | models.validation | Trial → train MAPE: 0.142667 | test MAPE: 0.008932
+2026-02-22 19:20:03 | DEBUG    | models.validation |   Fold 1 MAPE: 0.399778
+2026-02-22 19:20:04 | DEBUG    | models.validation |   Fold 2 MAPE: 0.019138
+2026-02-22 19:20:04 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008338
+2026-02-22 19:20:05 | INFO     | models.validation | Trial → train MAPE: 0.142418 | test MAPE: 0.009039
+2026-02-22 19:20:06 | DEBUG    | models.validation |   Fold 1 MAPE: 0.398021
+2026-02-22 19:20:07 | DEBUG    | models.validation |   Fold 2 MAPE: 0.019088
+2026-02-22 19:20:07 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008342
+2026-02-22 19:20:08 | INFO     | models.validation | Trial → train MAPE: 0.141817 | test MAPE: 0.009051
+2026-02-22 19:20:09 | DEBUG    | models.validation |   Fold 1 MAPE: 0.398471
+2026-02-22 19:20:10 | DEBUG    | models.validation |   Fold 2 MAPE: 0.018526
+2026-02-22 19:20:10 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008606
+2026-02-22 19:20:10 | INFO     | models.validation | Trial → train MAPE: 0.141868 | test MAPE: 0.008890
+2026-02-22 19:20:11 | DEBUG    | models.validation |   Fold 1 MAPE: 0.398774
+2026-02-22 19:20:12 | DEBUG    | models.validation |   Fold 2 MAPE: 0.020008
+2026-02-22 19:20:13 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008465
+2026-02-22 19:20:13 | INFO     | models.validation | Trial → train MAPE: 0.142416 | test MAPE: 0.009300
+2026-02-22 19:20:14 | DEBUG    | models.validation |   Fold 1 MAPE: 0.399089
+2026-02-22 19:20:15 | DEBUG    | models.validation |   Fold 2 MAPE: 0.020285
+2026-02-22 19:20:15 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008503
+2026-02-22 19:20:16 | INFO     | models.validation | Trial → train MAPE: 0.142626 | test MAPE: 0.008944
+2026-02-22 19:20:17 | DEBUG    | models.validation |   Fold 1 MAPE: 0.398282
+2026-02-22 19:20:18 | DEBUG    | models.validation |   Fold 2 MAPE: 0.017382
+2026-02-22 19:20:18 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008579
+2026-02-22 19:20:19 | INFO     | models.validation | Trial → train MAPE: 0.141414 | test MAPE: 0.009126
+2026-02-22 19:20:20 | DEBUG    | models.validation |   Fold 1 MAPE: 0.398314
+2026-02-22 19:20:21 | DEBUG    | models.validation |   Fold 2 MAPE: 0.019736
+2026-02-22 19:20:21 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008284
+2026-02-22 19:20:21 | INFO     | models.validation | Trial → train MAPE: 0.142111 | test MAPE: 0.009078
+2026-02-22 19:20:23 | DEBUG    | models.validation |   Fold 1 MAPE: 0.398090
+2026-02-22 19:20:23 | DEBUG    | models.validation |   Fold 2 MAPE: 0.017953
+2026-02-22 19:20:24 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008596
+2026-02-22 19:20:24 | INFO     | models.validation | Trial → train MAPE: 0.141546 | test MAPE: 0.009134
+2026-02-22 19:20:25 | DEBUG    | models.validation |   Fold 1 MAPE: 0.398790
+2026-02-22 19:20:26 | DEBUG    | models.validation |   Fold 2 MAPE: 0.020177
+2026-02-22 19:20:26 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008131
+2026-02-22 19:20:27 | INFO     | models.validation | Trial → train MAPE: 0.142366 | test MAPE: 0.009039
+2026-02-22 19:20:28 | DEBUG    | models.validation |   Fold 1 MAPE: 0.397896
+2026-02-22 19:20:29 | DEBUG    | models.validation |   Fold 2 MAPE: 0.018226
+2026-02-22 19:20:29 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008329
+2026-02-22 19:20:30 | INFO     | models.validation | Trial → train MAPE: 0.141484 | test MAPE: 0.009028
+2026-02-22 19:20:31 | DEBUG    | models.validation |   Fold 1 MAPE: 0.397699
+2026-02-22 19:20:31 | DEBUG    | models.validation |   Fold 2 MAPE: 0.018162
+2026-02-22 19:20:32 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008332
+2026-02-22 19:20:32 | INFO     | models.validation | Trial → train MAPE: 0.141398 | test MAPE: 0.008871
+2026-02-22 19:20:33 | DEBUG    | models.validation |   Fold 1 MAPE: 0.398113
+2026-02-22 19:20:34 | DEBUG    | models.validation |   Fold 2 MAPE: 0.018154
+2026-02-22 19:20:34 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008151
+2026-02-22 19:20:35 | INFO     | models.validation | Trial → train MAPE: 0.141473 | test MAPE: 0.009271
+2026-02-22 19:20:36 | DEBUG    | models.validation |   Fold 1 MAPE: 0.399175
+2026-02-22 19:20:37 | DEBUG    | models.validation |   Fold 2 MAPE: 0.017792
+2026-02-22 19:20:37 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008442
+2026-02-22 19:20:38 | INFO     | models.validation | Trial → train MAPE: 0.141803 | test MAPE: 0.008847
+2026-02-22 19:20:39 | DEBUG    | models.validation |   Fold 1 MAPE: 0.400988
+2026-02-22 19:20:40 | DEBUG    | models.validation |   Fold 2 MAPE: 0.017663
+2026-02-22 19:20:40 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008797
+2026-02-22 19:20:41 | INFO     | models.validation | Trial → train MAPE: 0.142483 | test MAPE: 0.009177
+2026-02-22 19:20:41 | INFO     | models.xgb_model | XGBoost best params: {'tree_method': 'exact', 'n_estimators': 1651, 'max_depth': 7, 'min_child_weight': 8.631640785724555, 'learning_rate': 0.1, 'subsample': 0.8418792579881641, 'colsample_bytree': 0.8063648189145697, 'reg_lambda': 301.7251411004846, 'early_stopping_rounds': 100, 'n_jobs': -1}  (test MAPE=0.008652)
+2026-02-22 19:20:41 | INFO     | pipelines.training_pipeline | XGBModel final test MAPE: 0.8652%
+2026-02-22 19:20:41 | INFO     | __main__ | Summary: {'model': 'XGBModel', 'best_params': {'tree_method': 'exact', 'n_estimators': 1651, 'max_depth': 7, 'min_child_weight': 8.631640785724555, 'learning_rate': 0.1, 'subsample': 0.8418792579881641, 'colsample_bytree': 0.8063648189145697, 'reg_lambda': 301.7251411004846, 'early_stopping_rounds': 100, 'n_jobs': -1}, 'test_mape': 0.00865201255675082}
+2026-02-22 19:20:41 | INFO     | visualization.plots | Plotting predictions – MAPE=0.8652%
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 1189
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 2994
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 374
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 286
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 263
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 387
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 436
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 351
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 19:20:41 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 364
+2026-02-22 19:22:54 | INFO     | models.base_model | Model saved to D:\ML projects\Sberbank stock prices prediction\src\models\saved\xgb_model.joblib
+2026-02-22 19:22:54 | INFO     | __main__ | XGBModel saved successfully
+2026-02-22 19:22:54 | INFO     | __main__ | train.py finished
