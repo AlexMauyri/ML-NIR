@@ -1,0 +1,431 @@
+2026-02-22 16:17:13 | INFO     | __main__ | train.py started | model=svr | trials=30
+2026-02-22 16:17:13 | INFO     | pipelines.data_pipeline | DataPipeline started
+2026-02-22 16:17:13 | INFO     | features.loader | Loading Sberbank prices from D:\ML projects\Sberbank stock prices prediction\src\data\raw\sberbank_stock_prices.csv
+2026-02-22 16:17:13 | DEBUG    | features.loader | Loaded 1293 rows of Sberbank data
+2026-02-22 16:17:13 | INFO     | features.engineering | Building feature matrix (target='Close', n_lags=4)
+2026-02-22 16:17:13 | INFO     | features.loader | Loading CB key rate from D:\ML projects\Sberbank stock prices prediction\src\data\raw\cb_rate.csv
+2026-02-22 16:17:13 | DEBUG    | features.loader | Loaded 1827 CB rate records
+2026-02-22 16:17:13 | DEBUG    | features.engineering | Joined CB key rate (1291 non-null values)
+2026-02-22 16:17:13 | DEBUG    | features.engineering | Created 4 lag features for column 'Close'
+2026-02-22 16:17:13 | INFO     | features.engineering | Feature matrix ready: 1282 rows, 12 features (dropped 11 NaN rows)
+2026-02-22 16:17:13 | DEBUG    | pipelines.data_pipeline | Split → X_train (1025, 11) | X_test (257, 11) | features: ['Rate', 'Close_lag_1', 'Close_lag_2', 'Close_lag_3', 'Close_lag_4', 'EMA_9', 'ROC_5', 'RSI_9', 'Std_11', 'Mean_11', 'Price_change']
+2026-02-22 16:17:13 | INFO     | pipelines.data_pipeline | DataPipeline finished — train=1025, test=257
+2026-02-22 16:24:16 | INFO     | __main__ | train.py started | model=svr | trials=30
+2026-02-22 16:24:16 | INFO     | pipelines.data_pipeline | DataPipeline started
+2026-02-22 16:24:16 | INFO     | features.loader | Loading Sberbank prices from D:\ML projects\Sberbank stock prices prediction\src\data\raw\sberbank_stock_prices.csv
+2026-02-22 16:24:16 | DEBUG    | features.loader | Loaded 1293 rows of Sberbank data
+2026-02-22 16:24:16 | INFO     | features.engineering | Building feature matrix (target='Close', n_lags=4)
+2026-02-22 16:24:16 | INFO     | features.loader | Loading CB key rate from D:\ML projects\Sberbank stock prices prediction\src\data\raw\cb_rate.csv
+2026-02-22 16:24:16 | DEBUG    | features.loader | Loaded 1827 CB rate records
+2026-02-22 16:24:16 | DEBUG    | features.engineering | Joined CB key rate (1291 non-null values)
+2026-02-22 16:24:16 | DEBUG    | features.engineering | Created 4 lag features for column 'Close'
+2026-02-22 16:24:16 | INFO     | features.engineering | Feature matrix ready: 1282 rows, 12 features (dropped 11 NaN rows)
+2026-02-22 16:24:16 | DEBUG    | pipelines.data_pipeline | Split → X_train (1025, 11) | X_test (257, 11) | features: ['Rate', 'Close_lag_1', 'Close_lag_2', 'Close_lag_3', 'Close_lag_4', 'EMA_9', 'ROC_5', 'RSI_9', 'Std_11', 'Mean_11', 'Price_change']
+2026-02-22 16:24:16 | INFO     | pipelines.data_pipeline | DataPipeline finished — train=1025, test=257
+2026-02-22 16:24:16 | INFO     | pipelines.data_pipeline | Processed features saved to D:\ML projects\Sberbank stock prices prediction\src\data\processed\features.parquet
+2026-02-22 16:24:16 | INFO     | __main__ | Dataset ready — train: 1025 rows | test: 257 rows | features: ['Rate', 'Close_lag_1', 'Close_lag_2', 'Close_lag_3', 'Close_lag_4', 'EMA_9', 'ROC_5', 'RSI_9', 'Std_11', 'Mean_11', 'Price_change']
+2026-02-22 16:24:16 | INFO     | __main__ | ============================================================
+2026-02-22 16:24:16 | INFO     | __main__ | Training SVRModel
+2026-02-22 16:24:16 | INFO     | __main__ | ============================================================
+2026-02-22 16:24:16 | INFO     | pipelines.training_pipeline | TrainingPipeline: tuning SVRModel
+2026-02-22 16:24:16 | INFO     | models.svr_model | Starting SVR hyperparameter search (30 trials)
+2026-02-22 16:24:16 | DEBUG    | models.validation |   Fold 1 MAPE: 0.644819
+2026-02-22 16:24:16 | DEBUG    | models.validation |   Fold 2 MAPE: 0.012145
+2026-02-22 16:24:16 | DEBUG    | models.validation |   Fold 3 MAPE: 0.006369
+2026-02-22 16:24:17 | DEBUG    | models.validation | New best → test MAPE 0.004188 with params {'C': 7101.973557224024, 'epsilon': 2.4212981143719916, 'kernel': 'rbf'}
+2026-02-22 16:24:17 | INFO     | models.validation | Trial → train MAPE: 0.221111 | test MAPE: 0.004188
+2026-02-22 16:24:17 | DEBUG    | models.validation |   Fold 1 MAPE: 0.637474
+2026-02-22 16:24:17 | DEBUG    | models.validation |   Fold 2 MAPE: 0.011387
+2026-02-22 16:24:17 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004973
+2026-02-22 16:24:18 | DEBUG    | models.validation | New best → test MAPE 0.003836 with params {'C': 9957.886571164347, 'epsilon': 1.602647965990769, 'kernel': 'rbf'}
+2026-02-22 16:24:18 | INFO     | models.validation | Trial → train MAPE: 0.217945 | test MAPE: 0.003836
+2026-02-22 16:24:18 | DEBUG    | models.validation |   Fold 1 MAPE: 0.653864
+2026-02-22 16:24:18 | DEBUG    | models.validation |   Fold 2 MAPE: 0.014396
+2026-02-22 16:24:18 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008864
+2026-02-22 16:24:18 | INFO     | models.validation | Trial → train MAPE: 0.225708 | test MAPE: 0.006289
+2026-02-22 16:24:18 | DEBUG    | models.validation |   Fold 1 MAPE: 0.654902
+2026-02-22 16:24:18 | DEBUG    | models.validation |   Fold 2 MAPE: 0.014577
+2026-02-22 16:24:18 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008411
+2026-02-22 16:24:18 | INFO     | models.validation | Trial → train MAPE: 0.225964 | test MAPE: 0.006597
+2026-02-22 16:24:18 | DEBUG    | models.validation |   Fold 1 MAPE: 0.654001
+2026-02-22 16:24:18 | DEBUG    | models.validation |   Fold 2 MAPE: 0.013233
+2026-02-22 16:24:18 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008080
+2026-02-22 16:24:18 | INFO     | models.validation | Trial → train MAPE: 0.225105 | test MAPE: 0.006060
+2026-02-22 16:24:18 | DEBUG    | models.validation |   Fold 1 MAPE: 0.651034
+2026-02-22 16:24:18 | DEBUG    | models.validation |   Fold 2 MAPE: 0.011184
+2026-02-22 16:24:19 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004268
+2026-02-22 16:24:19 | DEBUG    | models.validation | New best → test MAPE 0.003181 with params {'C': 1628.1072503691641, 'epsilon': 0.5690417959689711, 'kernel': 'rbf'}
+2026-02-22 16:24:19 | INFO     | models.validation | Trial → train MAPE: 0.222162 | test MAPE: 0.003181
+2026-02-22 16:24:20 | DEBUG    | models.validation |   Fold 1 MAPE: 0.695608
+2026-02-22 16:24:22 | DEBUG    | models.validation |   Fold 2 MAPE: 0.012576
+2026-02-22 16:24:25 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004261
+2026-02-22 16:24:29 | DEBUG    | models.validation | New best → test MAPE 0.003096 with params {'C': 9605.57274717956, 'epsilon': 0.11203038193078954, 'kernel': 'rbf'}
+2026-02-22 16:24:29 | INFO     | models.validation | Trial → train MAPE: 0.237481 | test MAPE: 0.003096
+2026-02-22 16:24:29 | DEBUG    | models.validation |   Fold 1 MAPE: 0.644323
+2026-02-22 16:24:29 | DEBUG    | models.validation |   Fold 2 MAPE: 0.011910
+2026-02-22 16:24:29 | DEBUG    | models.validation |   Fold 3 MAPE: 0.005920
+2026-02-22 16:24:29 | INFO     | models.validation | Trial → train MAPE: 0.220718 | test MAPE: 0.004210
+2026-02-22 16:24:29 | DEBUG    | models.validation |   Fold 1 MAPE: 0.646040
+2026-02-22 16:24:30 | DEBUG    | models.validation |   Fold 2 MAPE: 0.010472
+2026-02-22 16:24:30 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004667
+2026-02-22 16:24:30 | INFO     | models.validation | Trial → train MAPE: 0.220393 | test MAPE: 0.003220
+2026-02-22 16:24:30 | DEBUG    | models.validation |   Fold 1 MAPE: 0.633453
+2026-02-22 16:24:30 | DEBUG    | models.validation |   Fold 2 MAPE: 0.009934
+2026-02-22 16:24:30 | DEBUG    | models.validation |   Fold 3 MAPE: 0.005585
+2026-02-22 16:24:30 | INFO     | models.validation | Trial → train MAPE: 0.216324 | test MAPE: 0.003530
+2026-02-22 16:24:30 | DEBUG    | models.validation |   Fold 1 MAPE: 0.648165
+2026-02-22 16:24:30 | DEBUG    | models.validation |   Fold 2 MAPE: 0.013856
+2026-02-22 16:24:30 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007813
+2026-02-22 16:24:31 | INFO     | models.validation | Trial → train MAPE: 0.223278 | test MAPE: 0.005300
+2026-02-22 16:24:31 | DEBUG    | models.validation |   Fold 1 MAPE: 0.637649
+2026-02-22 16:24:31 | DEBUG    | models.validation |   Fold 2 MAPE: 0.011105
+2026-02-22 16:24:31 | DEBUG    | models.validation |   Fold 3 MAPE: 0.005127
+2026-02-22 16:24:31 | INFO     | models.validation | Trial → train MAPE: 0.217960 | test MAPE: 0.003869
+2026-02-22 16:24:31 | DEBUG    | models.validation |   Fold 1 MAPE: 0.636453
+2026-02-22 16:24:32 | DEBUG    | models.validation |   Fold 2 MAPE: 0.010622
+2026-02-22 16:24:32 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004689
+2026-02-22 16:24:33 | INFO     | models.validation | Trial → train MAPE: 0.217255 | test MAPE: 0.003780
+2026-02-22 16:24:33 | DEBUG    | models.validation |   Fold 1 MAPE: 0.637410
+2026-02-22 16:24:33 | DEBUG    | models.validation |   Fold 2 MAPE: 0.010932
+2026-02-22 16:24:33 | DEBUG    | models.validation |   Fold 3 MAPE: 0.005102
+2026-02-22 16:24:33 | INFO     | models.validation | Trial → train MAPE: 0.217815 | test MAPE: 0.003850
+2026-02-22 16:24:34 | DEBUG    | models.validation |   Fold 1 MAPE: 0.637350
+2026-02-22 16:24:34 | DEBUG    | models.validation |   Fold 2 MAPE: 0.009744
+2026-02-22 16:24:34 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004746
+2026-02-22 16:24:35 | INFO     | models.validation | Trial → train MAPE: 0.217280 | test MAPE: 0.003473
+2026-02-22 16:24:35 | DEBUG    | models.validation |   Fold 1 MAPE: 0.647616
+2026-02-22 16:24:35 | DEBUG    | models.validation |   Fold 2 MAPE: 0.014079
+2026-02-22 16:24:35 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007627
+2026-02-22 16:24:35 | INFO     | models.validation | Trial → train MAPE: 0.223107 | test MAPE: 0.005242
+2026-02-22 16:24:35 | DEBUG    | models.validation |   Fold 1 MAPE: 0.640455
+2026-02-22 16:24:35 | DEBUG    | models.validation |   Fold 2 MAPE: 0.012126
+2026-02-22 16:24:35 | DEBUG    | models.validation |   Fold 3 MAPE: 0.005506
+2026-02-22 16:24:35 | INFO     | models.validation | Trial → train MAPE: 0.219362 | test MAPE: 0.004055
+2026-02-22 16:24:36 | DEBUG    | models.validation |   Fold 1 MAPE: 0.655710
+2026-02-22 16:24:36 | DEBUG    | models.validation |   Fold 2 MAPE: 0.012262
+2026-02-22 16:24:37 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004234
+2026-02-22 16:24:39 | DEBUG    | models.validation | New best → test MAPE 0.003062 with params {'C': 2750.990722872602, 'epsilon': 0.037282936788733956, 'kernel': 'rbf'}
+2026-02-22 16:24:39 | INFO     | models.validation | Trial → train MAPE: 0.224069 | test MAPE: 0.003062
+2026-02-22 16:24:39 | DEBUG    | models.validation |   Fold 1 MAPE: 0.637663
+2026-02-22 16:24:39 | DEBUG    | models.validation |   Fold 2 MAPE: 0.009502
+2026-02-22 16:24:40 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004846
+2026-02-22 16:24:40 | INFO     | models.validation | Trial → train MAPE: 0.217337 | test MAPE: 0.003520
+2026-02-22 16:24:40 | DEBUG    | models.validation |   Fold 1 MAPE: 0.647003
+2026-02-22 16:24:40 | DEBUG    | models.validation |   Fold 2 MAPE: 0.013439
+2026-02-22 16:24:40 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007058
+2026-02-22 16:24:41 | INFO     | models.validation | Trial → train MAPE: 0.222500 | test MAPE: 0.004887
+2026-02-22 16:24:41 | DEBUG    | models.validation |   Fold 1 MAPE: 0.665872
+2026-02-22 16:24:41 | DEBUG    | models.validation |   Fold 2 MAPE: 0.010357
+2026-02-22 16:24:42 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004333
+2026-02-22 16:24:44 | INFO     | models.validation | Trial → train MAPE: 0.226854 | test MAPE: 0.003345
+2026-02-22 16:24:45 | DEBUG    | models.validation |   Fold 1 MAPE: 0.635757
+2026-02-22 16:24:45 | DEBUG    | models.validation |   Fold 2 MAPE: 0.009941
+2026-02-22 16:24:45 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004820
+2026-02-22 16:24:45 | INFO     | models.validation | Trial → train MAPE: 0.216839 | test MAPE: 0.003523
+2026-02-22 16:24:45 | DEBUG    | models.validation |   Fold 1 MAPE: 0.641384
+2026-02-22 16:24:45 | DEBUG    | models.validation |   Fold 2 MAPE: 0.012227
+2026-02-22 16:24:46 | DEBUG    | models.validation |   Fold 3 MAPE: 0.006715
+2026-02-22 16:24:46 | INFO     | models.validation | Trial → train MAPE: 0.220109 | test MAPE: 0.004064
+2026-02-22 16:24:46 | DEBUG    | models.validation |   Fold 1 MAPE: 0.636018
+2026-02-22 16:24:46 | DEBUG    | models.validation |   Fold 2 MAPE: 0.009847
+2026-02-22 16:24:46 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004895
+2026-02-22 16:24:47 | INFO     | models.validation | Trial → train MAPE: 0.216920 | test MAPE: 0.003532
+2026-02-22 16:24:47 | DEBUG    | models.validation |   Fold 1 MAPE: 0.635682
+2026-02-22 16:24:47 | DEBUG    | models.validation |   Fold 2 MAPE: 0.009929
+2026-02-22 16:24:47 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004917
+2026-02-22 16:24:48 | INFO     | models.validation | Trial → train MAPE: 0.216843 | test MAPE: 0.003541
+2026-02-22 16:24:48 | DEBUG    | models.validation |   Fold 1 MAPE: 0.665738
+2026-02-22 16:24:49 | DEBUG    | models.validation |   Fold 2 MAPE: 0.011428
+2026-02-22 16:24:49 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004274
+2026-02-22 16:24:50 | DEBUG    | models.validation | New best → test MAPE 0.003059 with params {'C': 3179.6493558272346, 'epsilon': 0.42946511726903214, 'kernel': 'rbf'}
+2026-02-22 16:24:50 | INFO     | models.validation | Trial → train MAPE: 0.227147 | test MAPE: 0.003059
+2026-02-22 16:24:50 | DEBUG    | models.validation |   Fold 1 MAPE: 0.640746
+2026-02-22 16:24:51 | DEBUG    | models.validation |   Fold 2 MAPE: 0.012179
+2026-02-22 16:24:51 | DEBUG    | models.validation |   Fold 3 MAPE: 0.006578
+2026-02-22 16:24:51 | INFO     | models.validation | Trial → train MAPE: 0.219834 | test MAPE: 0.004045
+2026-02-22 16:24:51 | DEBUG    | models.validation |   Fold 1 MAPE: 0.636165
+2026-02-22 16:24:51 | DEBUG    | models.validation |   Fold 2 MAPE: 0.009818
+2026-02-22 16:24:51 | DEBUG    | models.validation |   Fold 3 MAPE: 0.005003
+2026-02-22 16:24:51 | INFO     | models.validation | Trial → train MAPE: 0.216996 | test MAPE: 0.003381
+2026-02-22 16:24:51 | DEBUG    | models.validation |   Fold 1 MAPE: 0.646980
+2026-02-22 16:24:51 | DEBUG    | models.validation |   Fold 2 MAPE: 0.013352
+2026-02-22 16:24:51 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007264
+2026-02-22 16:24:52 | INFO     | models.validation | Trial → train MAPE: 0.222532 | test MAPE: 0.004611
+2026-02-22 16:24:52 | DEBUG    | models.validation |   Fold 1 MAPE: 0.644279
+2026-02-22 16:24:52 | DEBUG    | models.validation |   Fold 2 MAPE: 0.012510
+2026-02-22 16:24:52 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007171
+2026-02-22 16:24:52 | INFO     | models.validation | Trial → train MAPE: 0.221320 | test MAPE: 0.004176
+2026-02-22 16:24:52 | INFO     | models.svr_model | SVR best params: {'C': 3179.6493558272346, 'epsilon': 0.42946511726903214, 'kernel': 'rbf'}  (test MAPE=0.003059)
+2026-02-22 16:24:53 | INFO     | pipelines.training_pipeline | SVRModel final test MAPE: 0.3059%
+2026-02-22 16:24:53 | INFO     | __main__ | Summary: {'model': 'SVRModel', 'best_params': {'C': 3179.6493558272346, 'epsilon': 0.42946511726903214, 'kernel': 'rbf'}, 'test_mape': 0.0030593092020335102}
+2026-02-22 16:24:53 | INFO     | visualization.plots | Plotting predictions – MAPE=0.3059%
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 1189
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 2994
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 374
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 286
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 263
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 387
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 436
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 351
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 16:24:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 364
+2026-02-22 16:25:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 16:25:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 16:25:54 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 16:25:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 16:25:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 1189
+2026-02-22 16:25:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 16:25:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 16:25:54 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 16:25:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 16:25:54 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 2994
+2026-02-22 16:26:20 | INFO     | __main__ | train.py finished
+2026-02-22 16:37:59 | INFO     | __main__ | train.py started | model=svr | trials=30
+2026-02-22 16:37:59 | INFO     | pipelines.data_pipeline | DataPipeline started
+2026-02-22 16:37:59 | INFO     | features.loader | Loading Sberbank prices from D:\ML projects\Sberbank stock prices prediction\src\data\raw\sberbank_stock_prices.csv
+2026-02-22 16:37:59 | DEBUG    | features.loader | Loaded 1293 rows of Sberbank data
+2026-02-22 16:37:59 | INFO     | features.engineering | Building feature matrix (target='Close', n_lags=4)
+2026-02-22 16:37:59 | INFO     | features.loader | Loading CB key rate from D:\ML projects\Sberbank stock prices prediction\src\data\raw\cb_rate.csv
+2026-02-22 16:37:59 | DEBUG    | features.loader | Loaded 1827 CB rate records
+2026-02-22 16:37:59 | DEBUG    | features.engineering | Joined CB key rate (1291 non-null values)
+2026-02-22 16:37:59 | DEBUG    | features.engineering | Created 4 lag features for column 'Close'
+2026-02-22 16:37:59 | INFO     | features.engineering | Feature matrix ready: 1282 rows, 12 features (dropped 11 NaN rows)
+2026-02-22 16:37:59 | DEBUG    | pipelines.data_pipeline | Split → X_train (1025, 11) | X_test (257, 11) | features: ['Rate', 'Close_lag_1', 'Close_lag_2', 'Close_lag_3', 'Close_lag_4', 'EMA_9', 'ROC_5', 'RSI_9', 'Std_11', 'Mean_11', 'Price_change']
+2026-02-22 16:37:59 | INFO     | pipelines.data_pipeline | DataPipeline finished — train=1025, test=257
+2026-02-22 16:37:59 | INFO     | __main__ | Dataset ready — train: 1025 rows | test: 257 rows | features: ['Rate', 'Close_lag_1', 'Close_lag_2', 'Close_lag_3', 'Close_lag_4', 'EMA_9', 'ROC_5', 'RSI_9', 'Std_11', 'Mean_11', 'Price_change']
+2026-02-22 16:37:59 | INFO     | __main__ | ============================================================
+2026-02-22 16:37:59 | INFO     | __main__ | Training SVRModel
+2026-02-22 16:37:59 | INFO     | __main__ | ============================================================
+2026-02-22 16:37:59 | INFO     | pipelines.training_pipeline | TrainingPipeline: tuning SVRModel
+2026-02-22 16:37:59 | INFO     | models.svr_model | Starting SVR hyperparameter search (30 trials)
+2026-02-22 16:37:59 | DEBUG    | models.validation |   Fold 1 MAPE: 0.644137
+2026-02-22 16:37:59 | DEBUG    | models.validation |   Fold 2 MAPE: 0.011930
+2026-02-22 16:37:59 | DEBUG    | models.validation |   Fold 3 MAPE: 0.005894
+2026-02-22 16:38:00 | DEBUG    | models.validation | New best → test MAPE 0.004148 with params {'C': 8789.16428482672, 'epsilon': 2.340723476852264, 'kernel': 'rbf'}
+2026-02-22 16:38:00 | INFO     | models.validation | Trial → train MAPE: 0.220654 | test MAPE: 0.004148
+2026-02-22 16:38:00 | DEBUG    | models.validation |   Fold 1 MAPE: 0.640619
+2026-02-22 16:38:00 | DEBUG    | models.validation |   Fold 2 MAPE: 0.011799
+2026-02-22 16:38:00 | DEBUG    | models.validation |   Fold 3 MAPE: 0.006758
+2026-02-22 16:38:00 | DEBUG    | models.validation | New best → test MAPE 0.003973 with params {'C': 1526.9920762921904, 'epsilon': 1.95831681227615, 'kernel': 'rbf'}
+2026-02-22 16:38:00 | INFO     | models.validation | Trial → train MAPE: 0.219725 | test MAPE: 0.003973
+2026-02-22 16:38:00 | DEBUG    | models.validation |   Fold 1 MAPE: 0.637501
+2026-02-22 16:38:00 | DEBUG    | models.validation |   Fold 2 MAPE: 0.010872
+2026-02-22 16:38:00 | DEBUG    | models.validation |   Fold 3 MAPE: 0.005325
+2026-02-22 16:38:00 | DEBUG    | models.validation | New best → test MAPE 0.003889 with params {'C': 4916.519538310631, 'epsilon': 1.6054541763923882, 'kernel': 'rbf'}
+2026-02-22 16:38:00 | INFO     | models.validation | Trial → train MAPE: 0.217899 | test MAPE: 0.003889
+2026-02-22 16:38:00 | DEBUG    | models.validation |   Fold 1 MAPE: 0.643688
+2026-02-22 16:38:00 | DEBUG    | models.validation |   Fold 2 MAPE: 0.012278
+2026-02-22 16:38:01 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007455
+2026-02-22 16:38:01 | INFO     | models.validation | Trial → train MAPE: 0.221140 | test MAPE: 0.004259
+2026-02-22 16:38:01 | DEBUG    | models.validation |   Fold 1 MAPE: 0.646149
+2026-02-22 16:38:01 | DEBUG    | models.validation |   Fold 2 MAPE: 0.012171
+2026-02-22 16:38:01 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007460
+2026-02-22 16:38:01 | INFO     | models.validation | Trial → train MAPE: 0.221927 | test MAPE: 0.004265
+2026-02-22 16:38:01 | DEBUG    | models.validation |   Fold 1 MAPE: 0.649930
+2026-02-22 16:38:01 | DEBUG    | models.validation |   Fold 2 MAPE: 0.013730
+2026-02-22 16:38:01 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007796
+2026-02-22 16:38:01 | INFO     | models.validation | Trial → train MAPE: 0.223819 | test MAPE: 0.005618
+2026-02-22 16:38:01 | DEBUG    | models.validation |   Fold 1 MAPE: 0.653315
+2026-02-22 16:38:01 | DEBUG    | models.validation |   Fold 2 MAPE: 0.014223
+2026-02-22 16:38:01 | DEBUG    | models.validation |   Fold 3 MAPE: 0.008889
+2026-02-22 16:38:01 | INFO     | models.validation | Trial → train MAPE: 0.225476 | test MAPE: 0.006184
+2026-02-22 16:38:01 | DEBUG    | models.validation |   Fold 1 MAPE: 0.655603
+2026-02-22 16:38:01 | DEBUG    | models.validation |   Fold 2 MAPE: 0.015898
+2026-02-22 16:38:01 | DEBUG    | models.validation |   Fold 3 MAPE: 0.009505
+2026-02-22 16:38:01 | INFO     | models.validation | Trial → train MAPE: 0.227002 | test MAPE: 0.006793
+2026-02-22 16:38:01 | DEBUG    | models.validation |   Fold 1 MAPE: 0.635468
+2026-02-22 16:38:02 | DEBUG    | models.validation |   Fold 2 MAPE: 0.010390
+2026-02-22 16:38:02 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004549
+2026-02-22 16:38:04 | DEBUG    | models.validation | New best → test MAPE 0.003658 with params {'C': 9770.555956190597, 'epsilon': 1.2570915838144547, 'kernel': 'rbf'}
+2026-02-22 16:38:04 | INFO     | models.validation | Trial → train MAPE: 0.216802 | test MAPE: 0.003658
+2026-02-22 16:38:04 | DEBUG    | models.validation |   Fold 1 MAPE: 0.646415
+2026-02-22 16:38:04 | DEBUG    | models.validation |   Fold 2 MAPE: 0.009628
+2026-02-22 16:38:04 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004533
+2026-02-22 16:38:05 | DEBUG    | models.validation | New best → test MAPE 0.003300 with params {'C': 2672.0734330303976, 'epsilon': 0.8431690276469287, 'kernel': 'rbf'}
+2026-02-22 16:38:05 | INFO     | models.validation | Trial → train MAPE: 0.220192 | test MAPE: 0.003300
+2026-02-22 16:38:05 | DEBUG    | models.validation |   Fold 1 MAPE: 0.676482
+2026-02-22 16:38:06 | DEBUG    | models.validation |   Fold 2 MAPE: 0.012687
+2026-02-22 16:38:09 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004305
+2026-02-22 16:38:13 | DEBUG    | models.validation | New best → test MAPE 0.003074 with params {'C': 6815.571581402631, 'epsilon': 0.05912379901703879, 'kernel': 'rbf'}
+2026-02-22 16:38:13 | INFO     | models.validation | Trial → train MAPE: 0.231158 | test MAPE: 0.003074
+2026-02-22 16:38:13 | DEBUG    | models.validation |   Fold 1 MAPE: 0.635365
+2026-02-22 16:38:13 | DEBUG    | models.validation |   Fold 2 MAPE: 0.010218
+2026-02-22 16:38:14 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004857
+2026-02-22 16:38:14 | INFO     | models.validation | Trial → train MAPE: 0.216813 | test MAPE: 0.003595
+2026-02-22 16:38:14 | DEBUG    | models.validation |   Fold 1 MAPE: 0.645991
+2026-02-22 16:38:15 | DEBUG    | models.validation |   Fold 2 MAPE: 0.008682
+2026-02-22 16:38:15 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004596
+2026-02-22 16:38:16 | INFO     | models.validation | Trial → train MAPE: 0.219756 | test MAPE: 0.003401
+2026-02-22 16:38:16 | DEBUG    | models.validation |   Fold 1 MAPE: 0.635428
+2026-02-22 16:38:17 | DEBUG    | models.validation |   Fold 2 MAPE: 0.009879
+2026-02-22 16:38:17 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004883
+2026-02-22 16:38:18 | INFO     | models.validation | Trial → train MAPE: 0.216730 | test MAPE: 0.003610
+2026-02-22 16:38:19 | DEBUG    | models.validation |   Fold 1 MAPE: 0.703163
+2026-02-22 16:38:20 | DEBUG    | models.validation |   Fold 2 MAPE: 0.011941
+2026-02-22 16:38:24 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004109
+2026-02-22 16:38:28 | INFO     | models.validation | Trial → train MAPE: 0.239737 | test MAPE: 0.003137
+2026-02-22 16:38:28 | DEBUG    | models.validation |   Fold 1 MAPE: 0.647338
+2026-02-22 16:38:28 | DEBUG    | models.validation |   Fold 2 MAPE: 0.014046
+2026-02-22 16:38:28 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007696
+2026-02-22 16:38:28 | INFO     | models.validation | Trial → train MAPE: 0.223027 | test MAPE: 0.005234
+2026-02-22 16:38:28 | DEBUG    | models.validation |   Fold 1 MAPE: 0.671121
+2026-02-22 16:38:29 | DEBUG    | models.validation |   Fold 2 MAPE: 0.010688
+2026-02-22 16:38:30 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004294
+2026-02-22 16:38:32 | INFO     | models.validation | Trial → train MAPE: 0.228701 | test MAPE: 0.003334
+2026-02-22 16:38:32 | DEBUG    | models.validation |   Fold 1 MAPE: 0.637706
+2026-02-22 16:38:33 | DEBUG    | models.validation |   Fold 2 MAPE: 0.011247
+2026-02-22 16:38:33 | DEBUG    | models.validation |   Fold 3 MAPE: 0.005059
+2026-02-22 16:38:33 | INFO     | models.validation | Trial → train MAPE: 0.218004 | test MAPE: 0.003865
+2026-02-22 16:38:33 | DEBUG    | models.validation |   Fold 1 MAPE: 0.635476
+2026-02-22 16:38:34 | DEBUG    | models.validation |   Fold 2 MAPE: 0.010226
+2026-02-22 16:38:34 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004903
+2026-02-22 16:38:34 | INFO     | models.validation | Trial → train MAPE: 0.216869 | test MAPE: 0.003607
+2026-02-22 16:38:34 | DEBUG    | models.validation |   Fold 1 MAPE: 0.646994
+2026-02-22 16:38:34 | DEBUG    | models.validation |   Fold 2 MAPE: 0.013645
+2026-02-22 16:38:35 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007440
+2026-02-22 16:38:35 | INFO     | models.validation | Trial → train MAPE: 0.222693 | test MAPE: 0.005181
+2026-02-22 16:38:35 | DEBUG    | models.validation |   Fold 1 MAPE: 0.638738
+2026-02-22 16:38:35 | DEBUG    | models.validation |   Fold 2 MAPE: 0.011538
+2026-02-22 16:38:35 | DEBUG    | models.validation |   Fold 3 MAPE: 0.005338
+2026-02-22 16:38:36 | INFO     | models.validation | Trial → train MAPE: 0.218538 | test MAPE: 0.003985
+2026-02-22 16:38:36 | DEBUG    | models.validation |   Fold 1 MAPE: 0.635233
+2026-02-22 16:38:36 | DEBUG    | models.validation |   Fold 2 MAPE: 0.010195
+2026-02-22 16:38:37 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004875
+2026-02-22 16:38:37 | INFO     | models.validation | Trial → train MAPE: 0.216768 | test MAPE: 0.003584
+2026-02-22 16:38:37 | DEBUG    | models.validation |   Fold 1 MAPE: 0.669926
+2026-02-22 16:38:38 | DEBUG    | models.validation |   Fold 2 MAPE: 0.011039
+2026-02-22 16:38:39 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004170
+2026-02-22 16:38:40 | INFO     | models.validation | Trial → train MAPE: 0.228379 | test MAPE: 0.003126
+2026-02-22 16:38:40 | DEBUG    | models.validation |   Fold 1 MAPE: 0.635194
+2026-02-22 16:38:40 | DEBUG    | models.validation |   Fold 2 MAPE: 0.010079
+2026-02-22 16:38:41 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004924
+2026-02-22 16:38:41 | INFO     | models.validation | Trial → train MAPE: 0.216732 | test MAPE: 0.003570
+2026-02-22 16:38:41 | DEBUG    | models.validation |   Fold 1 MAPE: 0.637126
+2026-02-22 16:38:42 | DEBUG    | models.validation |   Fold 2 MAPE: 0.009586
+2026-02-22 16:38:42 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004864
+2026-02-22 16:38:43 | INFO     | models.validation | Trial → train MAPE: 0.217192 | test MAPE: 0.003516
+2026-02-22 16:38:43 | DEBUG    | models.validation |   Fold 1 MAPE: 0.640954
+2026-02-22 16:38:43 | DEBUG    | models.validation |   Fold 2 MAPE: 0.012304
+2026-02-22 16:38:43 | DEBUG    | models.validation |   Fold 3 MAPE: 0.006082
+2026-02-22 16:38:44 | INFO     | models.validation | Trial → train MAPE: 0.219780 | test MAPE: 0.004094
+2026-02-22 16:38:44 | DEBUG    | models.validation |   Fold 1 MAPE: 0.673201
+2026-02-22 16:38:44 | DEBUG    | models.validation |   Fold 2 MAPE: 0.010624
+2026-02-22 16:38:45 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004266
+2026-02-22 16:38:47 | INFO     | models.validation | Trial → train MAPE: 0.229363 | test MAPE: 0.003209
+2026-02-22 16:38:48 | DEBUG    | models.validation |   Fold 1 MAPE: 0.674982
+2026-02-22 16:38:49 | DEBUG    | models.validation |   Fold 2 MAPE: 0.012682
+2026-02-22 16:38:52 | DEBUG    | models.validation |   Fold 3 MAPE: 0.004288
+2026-02-22 16:38:56 | DEBUG    | models.validation | New best → test MAPE 0.003069 with params {'C': 6719.9972236962785, 'epsilon': 0.04929445999635651, 'kernel': 'rbf'}
+2026-02-22 16:38:56 | INFO     | models.validation | Trial → train MAPE: 0.230651 | test MAPE: 0.003069
+2026-02-22 16:38:56 | DEBUG    | models.validation |   Fold 1 MAPE: 0.636870
+2026-02-22 16:38:56 | DEBUG    | models.validation |   Fold 2 MAPE: 0.011141
+2026-02-22 16:38:56 | DEBUG    | models.validation |   Fold 3 MAPE: 0.005393
+2026-02-22 16:38:56 | INFO     | models.validation | Trial → train MAPE: 0.217801 | test MAPE: 0.003868
+2026-02-22 16:38:56 | DEBUG    | models.validation |   Fold 1 MAPE: 0.646139
+2026-02-22 16:38:56 | DEBUG    | models.validation |   Fold 2 MAPE: 0.012547
+2026-02-22 16:38:56 | DEBUG    | models.validation |   Fold 3 MAPE: 0.007312
+2026-02-22 16:38:56 | INFO     | models.validation | Trial → train MAPE: 0.221999 | test MAPE: 0.004216
+2026-02-22 16:38:56 | INFO     | models.svr_model | SVR best params: {'C': 6719.9972236962785, 'epsilon': 0.04929445999635651, 'kernel': 'rbf'}  (test MAPE=0.003069)
+2026-02-22 16:39:00 | INFO     | pipelines.training_pipeline | SVRModel final test MAPE: 0.3069%
+2026-02-22 16:39:00 | INFO     | __main__ | Summary: {'model': 'SVRModel', 'best_params': {'C': 6719.9972236962785, 'epsilon': 0.04929445999635651, 'kernel': 'rbf'}, 'test_mape': 0.003068813239535573}
+2026-02-22 16:39:00 | INFO     | visualization.plots | Plotting predictions – MAPE=0.3069%
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 1189
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 2994
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 374
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 286
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 263
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 387
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 436
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 351
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'IHDR' 16 13
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'sBIT' 41 4
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | b'sBIT' 41 4 (unknown)
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'pHYs' 57 9
+2026-02-22 16:39:00 | DEBUG    | PIL.PngImagePlugin | STREAM b'IDAT' 78 364
+2026-02-22 16:39:20 | INFO     | models.base_model | Model saved to D:\ML projects\Sberbank stock prices prediction\src\models\saved\svr_model.joblib
+2026-02-22 16:39:20 | INFO     | __main__ | SVRModel saved successfully
+2026-02-22 16:39:20 | INFO     | __main__ | train.py finished
+2026-02-22 16:50:32 | INFO     | __main__ | inference.py started | model=svr | input=data\processed\features.parquet
+2026-02-22 16:50:32 | INFO     | models.base_model | Loading model from D:\ML projects\Sberbank stock prices prediction\src\models\saved\svr_model.joblib
+2026-02-22 16:50:32 | INFO     | pipelines.inference_pipeline | InferencePipeline: loaded SVRModel from D:\ML projects\Sberbank stock prices prediction\src\models\saved\svr_model.joblib
+2026-02-22 16:59:47 | INFO     | __main__ | inference.py started | model=svr | input=D:\ML projects\Sberbank stock prices prediction\src\data\raw\sberbank_stock_prices.csv
+2026-02-22 16:59:47 | INFO     | models.base_model | Loading model from D:\ML projects\Sberbank stock prices prediction\src\models\saved\svr_model.joblib
+2026-02-22 16:59:47 | INFO     | pipelines.inference_pipeline | InferencePipeline: loaded SVRModel from D:\ML projects\Sberbank stock prices prediction\src\models\saved\svr_model.joblib
+2026-02-22 16:59:47 | INFO     | pipelines.inference_pipeline | InferencePipeline: applying feature engineering
+2026-02-22 16:59:47 | INFO     | features.engineering | Building feature matrix (target='Close', n_lags=4)
+2026-02-22 16:59:47 | INFO     | features.loader | Loading CB key rate from D:\ML projects\Sberbank stock prices prediction\src\data\raw\cb_rate.csv
+2026-02-22 16:59:47 | DEBUG    | features.loader | Loaded 1827 CB rate records
+2026-02-22 16:59:47 | DEBUG    | features.engineering | Joined CB key rate (1291 non-null values)
+2026-02-22 16:59:47 | DEBUG    | features.engineering | Created 4 lag features for column 'Close'
+2026-02-22 16:59:47 | INFO     | features.engineering | Feature matrix ready: 1282 rows, 12 features (dropped 11 NaN rows)
+2026-02-22 16:59:47 | INFO     | pipelines.inference_pipeline | InferencePipeline: produced 1282 predictions (range 101.55 – 387.55)
+2026-02-22 16:59:47 | INFO     | __main__ | Inference complete – 1282 predictions
+2026-02-22 16:59:47 | INFO     | __main__ | Predictions saved to preds.csv
+2026-02-22 16:59:47 | INFO     | __main__ | inference.py finished
