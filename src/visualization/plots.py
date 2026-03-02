@@ -58,10 +58,8 @@ def plot_predictions(
     if save_path:
         fig.savefig(save_path, dpi=150)
         logger.info("Plot saved to %s", save_path)
-    else:
-        plt.show()
 
-    plt.close(fig)
+    return fig
 
 
 def plot_feature_importance(
@@ -99,7 +97,5 @@ def plot_feature_importance(
     if save_path:
         fig.savefig(save_path, dpi=150)
         logger.info("Feature importance plot saved to %s", save_path)
-    else:
-        plt.show()
 
-    plt.close(fig)
+    return fig

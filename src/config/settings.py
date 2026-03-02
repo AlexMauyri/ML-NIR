@@ -7,12 +7,15 @@ it lives here. Nothing else is hard-coded anywhere.
 from pathlib import Path
 
 ROOT_DIR = Path(__file__).parent.parent
-MLFLOW_DIR = ROOT_DIR / "mlflow"
+MLFLOW_DIR = ROOT_DIR / "mlruns"
 DATA_RAW_DIR = ROOT_DIR / "data" / "raw"
 DATA_PROC_DIR = ROOT_DIR / "data" / "processed"
 LOGS_DIR = ROOT_DIR / "logs"
 MODELS_DIR = ROOT_DIR / "models" / "saved"
 SBERBANK_CSV = DATA_RAW_DIR / "sberbank_stock_prices.csv"
+GOLD_TIME_SERIES_CSV = DATA_RAW_DIR / "gold_time_series.csv"
+OIL_BRENT_TIME_SERIES_CSV = DATA_RAW_DIR / "oil_brent_time_series.csv"
+USD_RUB_TIME_SERIES_CSV = DATA_RAW_DIR / "usd_rub_time_series.csv"
 CB_RATE_CSV = DATA_RAW_DIR / "cb_rate.csv"
 MOSCOW_IDX_CSV = DATA_RAW_DIR / "security.csv"
 PROCESSED_FEATURES_FILE = DATA_PROC_DIR / "features.parquet"

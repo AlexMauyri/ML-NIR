@@ -62,17 +62,24 @@ def time_series_cv(
     y_test:  pd.Series,
     tracker: BestTracker,
     n_splits: int = N_CV_SPLITS,
+    trial_number: int | None = None,
 ) -> float:
     """
     Walk-forward cross-validation on the training set, followed by a
     held-out test evaluation.
 
+    Each call is treated as one Optuna trial. If a parent MLflow run is
+    active, a nested child run is opened automatically to record this trial's
+    hyperparameters, per-fold MAPEs, and final metrics.
+
     Parameters
     ----------
-    model    : sklearn-compatible estimator (unfitted)
-    params   : hyperparameter dict used to build *model* (for logging only)
-    tracker  : updated in-place when a new best is found
-    n_splits : number of TimeSeriesSplit folds
+    model        : sklearn-compatible estimator (unfitted)
+    params       : hyperparameter dict used to build *model*
+    tracker      : updated in-place when a new best is found
+    n_splits     : number of TimeSeriesSplit folds
+    trial_number : Optuna trial index (``trial.number``); used to name the
+                   child run. Pass None to skip child-run naming.
 
     Returns
     -------
@@ -94,7 +101,13 @@ def time_series_cv(
     train_mape = float(np.mean(fold_mapes))
 
     result = TrialResult(train_mape=train_mape, test_mape=test_mape, params=params)
-    tracker.update(result)
+    is_best = tracker.update(result)
 
-    logger.info("Trial → train MAPE: %.6f | test MAPE: %.6f", train_mape, test_mape)
+    logger.info(
+        "Trial %s → train MAPE: %.6f | test MAPE: %.6f%s",
+        f"#{trial_number}" if trial_number is not None else "",
+        train_mape, test_mape,
+        "  ← new best" if is_best else "",
+    )
+
     return train_mape

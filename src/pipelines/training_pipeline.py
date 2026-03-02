@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import logging
 
+import matplotlib.pyplot as plt
 import mlflow
 import numpy as np
 from sklearn.metrics import mean_absolute_percentage_error
@@ -55,14 +56,13 @@ class TrainingPipeline:
 
     def run(self, data: DataPipeline) -> "TrainingPipeline":
         """
-        Tune the model, evaluate it on the test split, and log the full
-        experiment to MLflow.  All artefacts live under the run identified
-        by ``self.run_id`` after this method returns.
+        Tune the model, evaluate on the test split, and log everything to
+        MLflow.  Nested child runs for each Optuna trial are opened
+        automatically inside ``time_series_cv``.
         """
         X_train, X_test, y_train, y_test = data.get_splits()
         model_name = type(self.model).__name__
         experiment_id = get_or_create_experiment(model_name)
-
         with mlflow.start_run(
             experiment_id=experiment_id,
             run_name=f"{model_name}_optuna_{self.n_trials}trials",
@@ -74,32 +74,31 @@ class TrainingPipeline:
             )
 
             mlflow.set_tags({
-                "model_type":  model_name,
-                "n_trials":    str(self.n_trials),
-                "n_features":  str(X_train.shape[1]),
-                "train_rows":  str(len(X_train)),
-                "test_rows":   str(len(X_test)),
+                "model_type": model_name,
+                "n_trials":   str(self.n_trials),
             })
+
+            train_dataset, test_dataset = data.mlflow_datasets()
+            mlflow.log_input(train_dataset, context="training")
+            mlflow.log_input(test_dataset,  context="testing")
+            logger.info("Dataset inputs logged to MLflow (train + test splits)")
 
             logger.info("TrainingPipeline: tuning %s", model_name)
             self.model.tune(X_train, y_train, X_test, y_test, n_trials=self.n_trials)
 
             self.y_pred = self.model.predict(X_test)
             self.test_mape = mean_absolute_percentage_error(y_test, self.y_pred)
-            self.train_mape = self.model.best_params.pop("_train_mape", None)
 
             mlflow.log_params({
                 k: str(v) for k, v in self.model.best_params.items()
             })
 
-            mlflow.log_metric("test_mape",  self.test_mape)
-            if self.train_mape is not None:
-                mlflow.log_metric("train_mape", self.train_mape)
-
-            self.model.log_to_mlflow(artifact_path="model")
+            mlflow.log_metric("test_mape", self.test_mape)
+            self.model.log_to_mlflow(name="model")
+            logger.info("Predictions plot logged to MLflow (plots/predictions.png)")
 
             logger.info(
-                "%s — test MAPE: %.4f%%  |  run_id: %s",
+                "%s — best test MAPE: %.4f%%  |  run_id: %s",
                 model_name, self.test_mape * 100, self.run_id,
             )
 
@@ -137,15 +136,17 @@ class TrainingPipeline:
         return result.version
 
     def plot(self, data: DataPipeline) -> None:
-        """Render actual-vs-predicted chart for the test set."""
+        """Show the actual-vs-predicted chart interactively."""
         _, _, _, y_test = data.get_splits()
         if self.y_pred is None:
             raise RuntimeError("Call TrainingPipeline.run() before plot().")
-        plot_predictions(
+        fig = plot_predictions(
             self.y_pred,
             y_test,
             title=f"{type(self.model).__name__} – Predicted vs Actual",
         )
+        plt.show()
+        plt.close(fig)
 
     @property
     def summary(self) -> dict:

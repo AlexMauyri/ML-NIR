@@ -90,7 +90,7 @@ def create_ta_features(
     out = join_key_rate(out)
     out = create_lags(out, target, n_lags)
 
-    close_prev = out[target].shift(1)   # yesterday's close – zero look-ahead
+    close_prev = out[target].shift(1)
 
     out[f"EMA_{ema_period}"] = ta.EMA(out[target], timeperiod=ema_period)
     out["ROC_5"] = ta.ROC(close_prev, timeperiod=5)

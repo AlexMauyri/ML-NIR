@@ -14,6 +14,7 @@ from __future__ import annotations
 import logging
 from pathlib import Path
 
+import mlflow
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
@@ -64,6 +65,53 @@ class DataPipeline:
         """Return (X_train, X_test, y_train, y_test). Raises if not run yet."""
         self._require_run()
         return self.X_train, self.X_test, self.y_train, self.y_test
+
+    def mlflow_datasets(self) -> tuple:
+        """
+        Return a (train_dataset, test_dataset) pair of ``mlflow.data.PandasDataset``
+        objects ready to be passed to ``mlflow.log_input()``.
+
+        Each dataset is constructed with ``mlflow.data.from_pandas()``:
+          - ``source`` points to the Sberbank raw CSV so MLflow records data lineage
+          - ``name``   identifies the split ("sberbank_train" / "sberbank_test")
+          - ``targets`` is set to the target column name
+
+        Usage inside a run::
+
+            train_ds, test_ds = data.mlflow_datasets()
+            mlflow.log_input(train_ds, context="training")
+            mlflow.log_input(test_ds,  context="testing")
+        """
+        self._require_run()
+
+        from config.settings import SBERBANK_CSV
+
+        train_df = self.X_train.copy()
+        train_df[self.target] = self.y_train
+
+        test_df = self.X_test.copy()
+        test_df[self.target] = self.y_test
+
+        source = str(SBERBANK_CSV)
+
+        train_dataset = mlflow.data.from_pandas(
+            train_df,
+            source=source,
+            name="sberbank_train",
+            targets=self.target,
+        )
+        test_dataset = mlflow.data.from_pandas(
+            test_df,
+            source=source,
+            name="sberbank_test",
+            targets=self.target,
+        )
+
+        logger.debug(
+            "MLflow datasets prepared — train: %d rows | test: %d rows",
+            len(train_df), len(test_df),
+        )
+        return train_dataset, test_dataset
 
     def save_processed(self, path: Path = PROCESSED_FEATURES_FILE) -> None:
         """Persist the full feature DataFrame to *path* as Parquet."""

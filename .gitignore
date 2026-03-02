@@ -3,3 +3,4 @@ project
 **/.ipynb_checkpoints
 src/logs
 src/mlflow
+src/mlruns

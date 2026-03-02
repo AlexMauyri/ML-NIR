@@ -58,7 +58,8 @@ class SVRModel(BaseModel):
                                   y_train,
                                   X_test,
                                   y_test,
-                                  tracker)
+                                  tracker,
+                                  trial_number=trial.number)
 
         study = optuna.create_study(
             direction="minimize",

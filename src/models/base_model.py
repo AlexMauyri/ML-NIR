@@ -61,7 +61,7 @@ class BaseModel(ABC):
         import mlflow.sklearn
         return mlflow.sklearn
 
-    def log_to_mlflow(self, artifact_path: str = "model") -> None:
+    def log_to_mlflow(self, name: str = "model") -> None:
         """
         Log the fitted inner model as an MLflow artifact inside the
         *currently active* run.  Must be called inside a ``mlflow.start_run``
@@ -69,15 +69,16 @@ class BaseModel(ABC):
 
         Parameters
         ----------
-        artifact_path : subdirectory inside the run's artifact store
+        name : model name inside the run's artifact store (replaces the
+               deprecated ``artifact_path`` parameter in older MLflow versions)
         """
         if self._model is None:
             raise RuntimeError("Cannot log to MLflow: model has not been fitted yet.")
         flavor = self.__class__.get_mlflow_flavor()
-        flavor.log_model(self._model, artifact_path=artifact_path)
+        flavor.log_model(self._model, name=name)
         logger.info(
-            "Logged %s to MLflow artifact path '%s'",
-            type(self).__name__, artifact_path,
+            "Logged %s to MLflow under name '%s'",
+            type(self).__name__, name,
         )
 
     @classmethod
